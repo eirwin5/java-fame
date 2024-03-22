@@ -3,13 +3,9 @@ package com.finalproj;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.List;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
 import com.google.gson.reflect.TypeToken;
 
 public class Song {
@@ -64,6 +60,8 @@ public class Song {
             Gson gson = builder.create();
             List<Song> songs = gson.fromJson(jsonString, new TypeToken<List<Song>>() {
             }.getType());
+
+            reader.close();
 
             return songs;
 
