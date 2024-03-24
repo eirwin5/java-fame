@@ -1,8 +1,15 @@
 [
     {
-        "songTitle": "test",
-        "songLink": "test.mp3",
-        "songDuration": 345,
-        "mediaPlayer": null
+        "songTitle": "test1",
+        "songLink": "test1.mp3",
+        "keyInstructions": "[{1.01, U}, {2.05, D}, {3.1, L}]"
+    },
+    {
+        "songTitle": "test2",
+        "songLink": "test2.mp3"
+    },
+    {
+        "songTitle": "test3",
+        "songLink": "test3.mp3"
     }
 ]

@@ -29,12 +29,13 @@ public class GameOverScreen implements Screen {
         Button restartButton = new Button("Restart Game");
         restartButton.setOnAction(e -> {
             gameState = GameState.WELCOME;
-            new WelcomeScreen(stage, gameState).show();
+            new WelcomeScreen(stage).show();
         });
 
         gameOverLayout.getChildren().addAll(gameOverText, restartButton);
 
-        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), gameOverLayout);
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1),
+                gameOverLayout);
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
         fadeIn.play();
