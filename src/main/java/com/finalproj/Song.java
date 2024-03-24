@@ -29,7 +29,7 @@ public class Song {
 
     public static List<Song> readSongsFromJson() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("songs.json"));
+            BufferedReader reader = new BufferedReader(new FileReader("songs/songs.json"));
             Gson gson = new Gson();
             List<Song> songs = gson.fromJson(reader, new TypeToken<List<Song>>() {
             }.getType());

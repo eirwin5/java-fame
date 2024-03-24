@@ -1,0 +1,15 @@
+[
+    {
+        "songTitle": "SundayBest",
+        "songLink": "songs/SundayBest.mp3",
+        "keyInstructions": "[{1.01, U}, {2.05, D}, {3.1, L}]"
+    },
+    {
+        "songTitle": "KillTheLights",
+        "songLink": "songs/KillTheLights.mp3"
+    },
+    {
+        "songTitle": "OnTopOfTheWorld",
+        "songLink": "songs/OnTopOfTheWorld.mp3"
+    }
+]
