@@ -2,6 +2,7 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import object.ObjectType;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -13,6 +14,8 @@ public class Player extends Entity {
     public final int screenX, screenY;
     GamePanel gp;
     KeyHandler keyH;
+    public int hasKey = 0;
+
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
@@ -21,6 +24,8 @@ public class Player extends Entity {
         screenY = gp.screenHeight / 2 - (gp.tileSize /2);
 
         solidArea = new Rectangle(8,16,32, 32);
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
 
         setDefaultValues();
         getPlayerImage();
@@ -74,6 +79,9 @@ public class Player extends Entity {
             }
             collisionOn = false;
             gp.collisionChecker.checkTile(this);
+
+            pickUpObject(gp.collisionChecker.checkObject(this, true));
+
             if (!collisionOn) {
                 switch (direction) {
                     case UP -> worldY -= speed;
@@ -82,6 +90,29 @@ public class Player extends Entity {
                     case RIGHT -> worldX += speed;
                 }
             }
+        }
+    }
+
+    public void pickUpObject(int index) {
+        if (index != 999) {
+            ObjectType objectType = gp.obj[index].type;
+            switch (objectType) {
+                case DOOR:
+                    if (hasKey > 0) {
+                        gp.obj[index] = null;
+                        gp.playSoundEffect(3);
+                        hasKey--;
+                    }
+                    break;
+                case KEY:
+                    hasKey++;
+                    gp.playSoundEffect(1);
+                    gp.obj[index] = null;
+                    break;
+                case CHEST:
+                    break;
+            }
+
         }
     }
 
