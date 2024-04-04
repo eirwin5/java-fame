@@ -1,6 +1,7 @@
 package main;
 
 import entity.Player;
+import object.SuperObject;
 import tile.TileManager;
 
 import javax.swing.*;
@@ -14,16 +15,24 @@ public class GamePanel extends JPanel implements Runnable {
     public final int tileSize = originalTileSize * scale; // 48x48 tile
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
-    final int screenWidth = tileSize*maxScreenCol; // 768 pixels
-    final int screenHeight = tileSize*maxScreenRow; // 576 pixels
+    public final int screenWidth = tileSize*maxScreenCol; // 768 pixels
+    public final int screenHeight = tileSize*maxScreenRow; // 576 pixels
+
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
+    public final int worldWidth = tileSize * maxWorldCol;
+    public final int worldHeight = tileSize * maxWorldRow;
 
     // FPS
     int FPS = 60;
 
+    TileManager tileM = new TileManager(this);
     main.KeyHandler keyH = new main.KeyHandler();
     Thread gameThread;
-    Player player = new Player(this, keyH);
-    TileManager tileM = new TileManager(this);
+    public CollisionChecker collisionChecker = new CollisionChecker(this);
+    public AssetSetter assetSetter = new AssetSetter(this);
+    public Player player = new Player(this, keyH);
+    public SuperObject[] obj = new SuperObject[10]; // room for 10 objects to be on the screen at once
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -31,6 +40,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+    }
+
+    public void setupGame() {
+        assetSetter.setObject();
     }
 
     public void startGameThread() {
@@ -68,6 +81,13 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    public boolean checkInView(int worldX, int worldY) {
+        return worldX + tileSize > player.worldX - player.screenX &&
+                worldX - tileSize < player.worldX + player.screenX &&
+                worldY + tileSize > player.worldY - player.screenY &&
+                worldY - tileSize < player.worldY + player.screenY;
+    }
+
     public void update() {
         player.update();
     }
@@ -75,7 +95,18 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        tileM.draw(g2); // this has to go before
+
+        // tiles
+        tileM.draw(g2);
+
+        // objects
+        for (SuperObject o : obj) {
+            if (o != null) {
+                o.draw(g2, this);
+            }
+        }
+
+        //player
         player.draw(g2);
         g2.dispose();
     }

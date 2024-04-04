@@ -7,24 +7,28 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.net.URL;
-import java.util.Objects;
 
 public class Player extends Entity {
+
+    public final int screenX, screenY;
     GamePanel gp;
     KeyHandler keyH;
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
 
+        screenX = gp.screenWidth / 2 - (gp.tileSize /2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize /2);
+
+        solidArea = new Rectangle(8,16,32, 32);
+
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
-        x = 100;
-        y = 100;
+        worldX = gp.tileSize * 23; // player's position on the world map
+        worldY = gp.tileSize * 21;
         speed = 4;
         direction = Direction.DOWN;
     }
@@ -53,36 +57,35 @@ public class Player extends Entity {
             if (spriteCounter > 12) {
                 if (spriteNum == 1) {
                     spriteNum = 2;
-                }
-                else if (spriteNum == 2) {
+                } else if (spriteNum == 2) {
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
             }
-        }
 
-        if (keyH.upPressed) {
-            direction = Direction.UP;
-            y -= speed;
-        }
-        else if (keyH.downPressed) {
-            direction = Direction.DOWN;
-            y += speed;
-        }
-        else if (keyH.rightPressed) {
-            direction = Direction.RIGHT;
-            x += speed;
-        }
-        else if (keyH.leftPressed) {
-            direction = Direction.LEFT;
-            x -= speed;
+            if (keyH.upPressed) {
+                direction = Direction.UP;
+            } else if (keyH.downPressed) {
+                direction = Direction.DOWN;
+            } else if (keyH.rightPressed) {
+                direction = Direction.RIGHT;
+            } else if (keyH.leftPressed) {
+                direction = Direction.LEFT;
+            }
+            collisionOn = false;
+            gp.collisionChecker.checkTile(this);
+            if (!collisionOn) {
+                switch (direction) {
+                    case UP -> worldY -= speed;
+                    case DOWN -> worldY += speed;
+                    case LEFT -> worldX -= speed;
+                    case RIGHT -> worldX += speed;
+                }
+            }
         }
     }
 
     public void draw(Graphics2D g2) {
-//        g2.setColor(Color.white);
-//        g2.fillRect(x, y, gp.tileSize, gp.tileSize);
-
         BufferedImage image = switch (direction) {
             case UP -> {
                 if (spriteNum == 1) yield up1;
@@ -102,6 +105,6 @@ public class Player extends Entity {
             }
         };
 
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 }
