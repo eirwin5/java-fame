@@ -1,5 +1,7 @@
 package main;
 
+import entity.Entity;
+import entity.Npc;
 import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
@@ -21,19 +23,26 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
 
-    // FPS
+    // Frames per second
     int FPS = 60;
 
+    // System
     TileManager tileM = new TileManager(this);
-    main.KeyHandler keyH = new main.KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     Thread gameThread;
+    public UI ui = new UI(this);
+    public Sound soundEffect = new Sound();
+    public Sound music = new Sound();
+
+    // Entity and object
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
     public Player player = new Player(this, keyH);
     public SuperObject[] obj = new SuperObject[10]; // room for 10 objects to be on the screen at once
-    public Sound music = new Sound();
-    public UI ui = new UI(this);
-    public Sound soundEffect = new Sound();
+    public Entity[] npc = new Entity[2];
+
+    // Game state
+    public GameState gameState;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -45,6 +54,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         assetSetter.setObject();
+        assetSetter.setNpc();
+        gameState = GameState.PLAY;
         playMusic(SoundType.MUSIC.ordinal());
     }
 
@@ -61,7 +72,6 @@ public class GamePanel extends JPanel implements Runnable {
             long lastTime = System.nanoTime();
             long currentTime;
             long timer = 0;
-            int drawCount = 0;
 
             while (gameThread != null) {
                 currentTime = System.nanoTime();
@@ -72,11 +82,8 @@ public class GamePanel extends JPanel implements Runnable {
                     update();
                     repaint();
                     delta--;
-                    drawCount++;
                 }
                 if (timer >= 1000000000) {
-//                    System.out.println("FPS: " + drawCount);
-                    drawCount = 0;
                     timer = 0;
                 }
             }
@@ -91,7 +98,14 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        player.update();
+        // do not update player information while the game is paused
+        if (gameState == GameState.PLAY) {
+            player.update();
+            for (Entity o : npc) {
+                if (o != null) o.update();
+            }
+        }
+
     }
 
     public void paintComponent(Graphics g) {
@@ -105,6 +119,13 @@ public class GamePanel extends JPanel implements Runnable {
         for (SuperObject o : obj) {
             if (o != null) {
                 o.draw(g2, this);
+            }
+        }
+
+        //npc
+        for(Entity n : npc) {
+            if (n != null) {
+                n.draw(g2);
             }
         }
 

@@ -8,7 +8,7 @@ public class ObjectKey extends SuperObject {
         type = ObjectType.KEY;
         name = "Key";
         try {
-            image = ImageIO.read(new File("res/object/key.png"));
+            image = ImageIO.read(new File("res/object/pompom1.png"));
 
         }
         catch (Exception e) {

@@ -2,6 +2,7 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.SoundType;
 import object.ObjectType;
 
 import javax.imageio.ImageIO;
@@ -12,11 +13,11 @@ import java.io.File;
 public class Player extends Entity {
 
     public final int screenX, screenY;
-    GamePanel gp;
     KeyHandler keyH;
     public int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
+        super(gp);
         this.gp = gp;
         this.keyH = keyH;
 
@@ -40,14 +41,14 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
         try {
-            up1 = ImageIO.read(new File("res/player/boy_up_1.png"));
-            up2 = ImageIO.read(new File("res/player/boy_up_2.png"));
-            down1 = ImageIO.read(new File("res/player/boy_down_1.png"));
-            down2 = ImageIO.read(new File("res/player/boy_down_2.png"));
-            right1 = ImageIO.read(new File("res/player/boy_right_1.png"));
-            right2 = ImageIO.read(new File("res/player/boy_right_2.png"));
-            left1 = ImageIO.read(new File("res/player/boy_left_1.png"));
-            left2 = ImageIO.read(new File("res/player/boy_left_2.png"));
+            up1 = ImageIO.read(new File("res/player/girl_up_1.png"));
+            up2 = ImageIO.read(new File("res/player/girl_up_2.png"));
+            down1 = ImageIO.read(new File("res/player/girl_down_1.png"));
+            down2 = ImageIO.read(new File("res/player/girl_down_2.png"));
+            right1 = ImageIO.read(new File("res/player/girl_right_1.png"));
+            right2 = ImageIO.read(new File("res/player/girl_right_2.png"));
+            left1 = ImageIO.read(new File("res/player/girl_left_1.png"));
+            left2 = ImageIO.read(new File("res/player/girl_left_2.png"));
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -77,10 +78,19 @@ public class Player extends Entity {
             } else if (keyH.leftPressed) {
                 direction = Direction.LEFT;
             }
+
+            // collision
             collisionOn = false;
+            // tile collision
             gp.collisionChecker.checkTile(this);
 
+            // object collision
             pickUpObject(gp.collisionChecker.checkObject(this, true));
+
+            // npc collision
+            int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
+
 
             if (!collisionOn) {
                 switch (direction) {
@@ -100,13 +110,13 @@ public class Player extends Entity {
                 case DOOR:
                     if (hasKey > 0) {
                         gp.obj[index] = null;
-                        gp.playSoundEffect(3);
+                        gp.playSoundEffect(SoundType.UNLOCK.ordinal());
                         hasKey--;
                     }
                     break;
                 case KEY:
                     hasKey++;
-                    gp.playSoundEffect(1);
+                    gp.playSoundEffect(SoundType.COIN.ordinal());
                     gp.obj[index] = null;
                     break;
                 case CHEST:
@@ -137,5 +147,11 @@ public class Player extends Entity {
         };
 
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+    }
+
+    public void interactNPC(int i) {
+        if (i != 999) {
+            System.out.println("Npc was hit");
+        }
     }
 }
