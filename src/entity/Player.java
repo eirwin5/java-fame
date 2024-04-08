@@ -1,6 +1,7 @@
 package entity;
 
 import main.GamePanel;
+import main.GameState;
 import main.KeyHandler;
 import main.SoundType;
 import object.ObjectType;
@@ -57,26 +58,29 @@ public class Player extends Entity {
 
     public void update() {
 
-        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
-            // player image changes every 12 frames
-            spriteCounter++;
-            if (spriteCounter > 12) {
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
+        // TODO: FIGURE OUT ENTERPRESSED HERE OR NOT!
+        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPressed) {
+            if (gp.gameState == GameState.PLAY) {
+                // player image changes every 12 frames
+                spriteCounter++;
+                if (spriteCounter > 12) {
+                    if (spriteNum == 1) {
+                        spriteNum = 2;
+                    } else if (spriteNum == 2) {
+                        spriteNum = 1;
+                    }
+                    spriteCounter = 0;
                 }
-                spriteCounter = 0;
-            }
 
-            if (keyH.upPressed) {
-                direction = Direction.UP;
-            } else if (keyH.downPressed) {
-                direction = Direction.DOWN;
-            } else if (keyH.rightPressed) {
-                direction = Direction.RIGHT;
-            } else if (keyH.leftPressed) {
-                direction = Direction.LEFT;
+                if (keyH.upPressed) {
+                    direction = Direction.UP;
+                } else if (keyH.downPressed) {
+                    direction = Direction.DOWN;
+                } else if (keyH.rightPressed) {
+                    direction = Direction.RIGHT;
+                } else if (keyH.leftPressed) {
+                    direction = Direction.LEFT;
+                }
             }
 
             // collision
@@ -91,8 +95,7 @@ public class Player extends Entity {
             int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
 
-
-            if (!collisionOn) {
+            if (gp.gameState == GameState.PLAY && !collisionOn) {
                 switch (direction) {
                     case UP -> worldY -= speed;
                     case DOWN -> worldY += speed;
@@ -151,7 +154,15 @@ public class Player extends Entity {
 
     public void interactNPC(int i) {
         if (i != 999) {
-            System.out.println("Npc was hit");
+            if (gp.gameState == GameState.DIALOGUE && gp.keyH.enterPressed) {
+                gp.npc[i].newDialogue();
+                gp.npc[i].speak();
+                gp.keyH.enterPressed = false;
+            }
+            else {
+                gp.gameState = GameState.DIALOGUE;
+                gp.npc[i].speak();
+            }
         }
     }
 }

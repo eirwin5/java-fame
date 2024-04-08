@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -19,25 +19,36 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        switch (code) {
-            case KeyEvent.VK_W, KeyEvent.VK_UP -> {
-                upPressed = true;
+            switch (code) {
+                case KeyEvent.VK_W, KeyEvent.VK_UP -> {
+                    upPressed = true;
+                }
+                case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
+                    downPressed = true;
+                }
+                case KeyEvent.VK_A, KeyEvent.VK_LEFT -> {
+                    leftPressed = true;
+                }
+                case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> {
+                    rightPressed = true;
+                }
+                case KeyEvent.VK_P -> {
+                    if (gp.gameState == GameState.PLAY) {
+                        gp.gameState = GameState.PAUSE;
+                    }
+                    else if (gp.gameState == GameState.PAUSE) {
+                        gp.gameState = GameState.PLAY;
+                    }
+                }
+                case KeyEvent.VK_ENTER -> {
+                    enterPressed = true;
+                }
+                case KeyEvent.VK_X -> {
+                    if (gp.gameState == GameState.DIALOGUE) {
+                        gp.gameState = GameState.PLAY;
+                    }
+                }
             }
-            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
-                downPressed = true;
-            }
-            case KeyEvent.VK_A, KeyEvent.VK_LEFT -> {
-                leftPressed = true;
-            }
-            case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> {
-                rightPressed = true;
-            }
-            case KeyEvent.VK_P -> {
-                gp.gameState = (gp.gameState == GameState.PLAY) ?
-                    GameState.PAUSE : GameState.PLAY;
-            }
-        }
-
     }
 
     @Override
@@ -56,6 +67,7 @@ public class KeyHandler implements KeyListener {
             case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> {
                 rightPressed = false;
             }
+//            case KeyEvent.VK_ENTER -> enterPressed = false;
         }
     }
 }

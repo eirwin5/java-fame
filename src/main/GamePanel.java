@@ -28,7 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // System
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(this);
+    public KeyHandler keyH = new KeyHandler(this);
     Thread gameThread;
     public UI ui = new UI(this);
     public Sound soundEffect = new Sound();
@@ -105,6 +105,9 @@ public class GamePanel extends JPanel implements Runnable {
                 if (o != null) o.update();
             }
         }
+        else if (gameState == GameState.DIALOGUE) {
+            player.update();
+        }
 
     }
 
@@ -112,36 +115,43 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        // tiles
-        tileM.draw(g2);
+        // title screen
+        if (gameState == GameState.TITLE) {
 
-        // objects
-        for (SuperObject o : obj) {
-            if (o != null) {
-                o.draw(g2, this);
-            }
         }
+        else {
 
-        //npc
-        for(Entity n : npc) {
-            if (n != null) {
-                n.draw(g2);
+            // tiles
+            tileM.draw(g2);
+
+            // objects
+            for (SuperObject o : obj) {
+                if (o != null) {
+                    o.draw(g2, this);
+                }
             }
+
+            //npc
+            for (Entity n : npc) {
+                if (n != null) {
+                    n.draw(g2);
+                }
+            }
+
+            //player
+            player.draw(g2);
+
+            // ui
+            ui.draw(g2);
+
+            g2.dispose();
         }
-
-        //player
-        player.draw(g2);
-
-        // ui
-        ui.draw(g2);
-
-        g2.dispose();
-
     }
     public void playMusic(int i) {
         music.setFile(i);
-        music.play();
-        music.loop();
+//        music.play();
+        music.stop();
+//        music.loop();
     }
 
     public void stopMusic() {
