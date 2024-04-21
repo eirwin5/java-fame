@@ -13,6 +13,7 @@ public class UI {
     Graphics2D g2;
     BufferedImage keyImage;
     public String currentDialogue;
+    public int commandNum = 0;
 //    double playtime = 0;
 //    DecimalFormat format = new DecimalFormat("#0.00");
 
@@ -24,14 +25,6 @@ public class UI {
         keyImage = key.image;
     }
     public void draw(Graphics2D g2) {
-        g2.setFont(arial_40);
-        g2.setColor(Color.white);
-        g2.drawImage(keyImage, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
-        g2.drawString(STR."x \{gp.player.hasKey}", 74, 65);
-//        if (gp.gameState != GameState.PAUSE) {
-//            playtime += (double) 1 / 60;
-//        }
-//        g2.drawString(STR."Time: \{format.format(playtime)}", gp.tileSize*11, 65);
         this.g2 = g2;
         g2.setFont(arial_80);
         g2.setColor(Color.white);
@@ -42,12 +35,66 @@ public class UI {
                 gp.stopMusic();
                 break;
             case PLAY:
+                drawPlayScreen();
                 // TODO: restart playing music
                 break;
             case DIALOGUE:
                 drawDialogueScreen();
                 break;
+            case TITLE:
+                drawTitleScreen();
         }
+    }
+
+    public void drawPlayScreen() {
+        g2.setFont(arial_40);
+        g2.setColor(Color.white);
+        g2.drawImage(keyImage, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
+        g2.drawString(STR."x \{gp.player.hasKey}", 74, 65);
+//        if (gp.gameState != GameState.PAUSE) {
+//            playtime += (double) 1 / 60;
+//        }
+//        g2.drawString(STR."Time: \{format.format(playtime)}", gp.tileSize*11, 65);
+
+    }
+
+    public void drawTitleScreen() {
+
+        // title
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,96F));
+        String text = "Cheer rush game";
+        int x = getXForCenterText(text);
+        int y = gp.tileSize*3;
+
+        // shadow
+        g2.setColor(Color.gray);
+        g2.drawString(text, x+5, y+5);
+        g2.setColor(Color.PINK);
+        g2.drawString(text, x, y);
+
+        // pic
+        x = gp.screenWidth/2 - (gp.tileSize*2)/2;
+        y+= gp.tileSize*2;
+        g2.drawImage(gp.player.down1, x, y, gp.tileSize*2, gp.tileSize*2, null);
+
+        // menu
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+        text = "New Game";
+        x = getXForCenterText(text);
+        y += gp.tileSize*4;
+        g2.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2.drawString(">", x-gp.tileSize, y);
+        }
+
+        text = "Quit";
+        x = getXForCenterText(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if (commandNum == 1) {
+            g2.drawString(">", x-gp.tileSize, y);
+        }
+
     }
 
     public void drawDialogueScreen() {

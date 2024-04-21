@@ -55,7 +55,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         assetSetter.setObject();
         assetSetter.setNpc();
-        gameState = GameState.PLAY;
+        gameState = GameState.TITLE;
         playMusic(SoundType.MUSIC.ordinal());
     }
 
@@ -117,10 +117,13 @@ public class GamePanel extends JPanel implements Runnable {
 
         // title screen
         if (gameState == GameState.TITLE) {
-
+            ui.draw(g2);
+        } else {
+            handleGame(g2);
         }
-        else {
+    }
 
+    public void handleGame(Graphics2D g2) {
             // tiles
             tileM.draw(g2);
 
@@ -146,7 +149,7 @@ public class GamePanel extends JPanel implements Runnable {
 
             g2.dispose();
         }
-    }
+
     public void playMusic(int i) {
         music.setFile(i);
 //        music.play();
