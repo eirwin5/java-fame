@@ -36,16 +36,27 @@ public class KeyHandler implements KeyListener {
                 case KeyEvent.VK_P -> {
                     gp.gameState = GameState.PAUSE;
                 }
-                case KeyEvent.VK_ENTER -> {
-                    enterPressed = true;
-                }
             }
         }
         else if (gp.gameState == GameState.PAUSE) {
             if (code == KeyEvent.VK_P) gp.gameState = GameState.PLAY;
         }
         else if (gp.gameState == GameState.DIALOGUE) {
-            if (code == KeyEvent.VK_X) gp.gameState = GameState.PLAY;
+            if (code == KeyEvent.VK_ENTER) {
+                enterPressed = true;
+            } else if (code == KeyEvent.VK_X) {
+                gp.gameState = GameState.PLAY;
+            }
+        }
+        else if (gp.gameState == GameState.DIALOGUE_OPTIONS) {
+            if (code == KeyEvent.VK_A) {
+                System.out.println("option A selected");
+                gp.gameState = GameState.PLAY;
+            } else if (code == KeyEvent.VK_B) {
+                System.out.println("option B selected");
+//                gp.gameState = GameState.MINI_GAME;
+            }
+            gp.optionFlag = false;
         }
         else if (gp.gameState == GameState.TITLE) {
             switch (code) {
@@ -85,7 +96,6 @@ public class KeyHandler implements KeyListener {
             case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> {
                 rightPressed = false;
             }
-//            case KeyEvent.VK_ENTER -> enterPressed = false;
         }
     }
 }

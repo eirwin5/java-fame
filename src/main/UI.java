@@ -4,7 +4,6 @@ import object.ObjectKey;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.text.DecimalFormat;
 
 public class UI {
     GamePanel gp;
@@ -36,14 +35,39 @@ public class UI {
                 break;
             case PLAY:
                 drawPlayScreen();
-                // TODO: restart playing music
+//                gp.music.play();
                 break;
             case DIALOGUE:
                 drawDialogueScreen();
                 break;
+            case DIALOGUE_OPTIONS:
+                drawOptions();
+                break;
             case TITLE:
                 drawTitleScreen();
+                break;
         }
+    }
+
+public void drawOptions() {
+        drawDialogueScreen();
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,32F));
+        g2.setColor(Color.white);
+        String optionA = "Not yet...";
+        String optionB = "Ready!";
+
+        int x = gp.tileSize;
+        int y = gp.tileSize*8;
+        int width = gp.screenWidth - (gp.tileSize*10);
+        int height = gp.tileSize*2;
+
+        drawSubwindow(x+(gp.tileSize/2),y,width,height);
+        g2.drawString(optionA, x+gp.tileSize, y+gp.tileSize);
+
+        x = x * 8 + (gp.tileSize/2);
+
+        drawSubwindow(x,y,width,height);
+        g2.drawString(optionB, x+gp.tileSize, y+gp.tileSize);
     }
 
     public void drawPlayScreen() {
@@ -114,8 +138,6 @@ public class UI {
             g2.drawString(line, x, y);
             y += 40;
         }
-
-//        g2.drawString(currentDialogue, x, y);
     }
 
     public void drawSubwindow(int x, int y, int width, int height) {
