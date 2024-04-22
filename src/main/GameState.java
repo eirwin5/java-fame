@@ -1,9 +1,10 @@
 package main;
 
 public enum GameState {
+    TITLE,
     PLAY,
     PAUSE,
     DIALOGUE,
-    TITLE,
+    DIALOGUE_OPTIONS,
     MINI_GAME,
 }

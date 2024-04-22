@@ -1,7 +1,6 @@
 package main;
 
 import entity.Entity;
-import entity.Npc;
 import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
@@ -43,6 +42,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // Game state
     public GameState gameState;
+    public boolean optionFlag = false;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -50,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+        this.gameState = GameState.TITLE;
     }
 
     public void setupGame() {

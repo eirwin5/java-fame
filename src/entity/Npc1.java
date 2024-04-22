@@ -1,14 +1,13 @@
 package entity;
 
 import main.GamePanel;
-import main.GameState;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.util.Random;
 
-public class Npc extends Entity {
-    public Npc(GamePanel gp) {
+public class Npc1 extends Entity {
+    public Npc1(GamePanel gp) {
         super(gp);
 
         direction = Direction.DOWN;
