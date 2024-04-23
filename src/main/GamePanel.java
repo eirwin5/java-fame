@@ -2,6 +2,7 @@ package main;
 
 import entity.Entity;
 import entity.Player;
+import minigame.HitBoxManager;
 import object.SuperObject;
 import tile.TileManager;
 
@@ -44,6 +45,9 @@ public class GamePanel extends JPanel implements Runnable {
     public GameState gameState;
     public boolean optionFlag = false;
 
+    // Mini game
+    public HitBoxManager hitBoxM;
+
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
@@ -57,6 +61,7 @@ public class GamePanel extends JPanel implements Runnable {
         assetSetter.setObject();
         assetSetter.setNpc();
         gameState = GameState.TITLE;
+        hitBoxM = new HitBoxManager(this);
         playMusic(SoundType.MUSIC.ordinal());
     }
 
@@ -127,7 +132,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void handleMiniGame(Graphics2D g2) {
-        // ui
+        // hitboxes
+        hitBoxM.draw(g2);
+
         ui.draw(g2);
 
         g2.dispose();

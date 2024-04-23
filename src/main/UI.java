@@ -53,18 +53,18 @@ public class UI {
     }
 
     public void drawMiniGameScreen() {
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 84F));
         g2.setColor(Color.white);
 
-        String text = "Mini Game Time!";
-        int x = getXForCenterText(text);
-        int y = gp.tileSize * 3;
-        g2.drawString(text, x, y);
+        // String text = "Mini Game Time!";
+        // int x = getXForCenterText(text);
+        // int y = gp.tileSize * 3;
+        // g2.drawString(text, x, y);
 
         // pic
-        x = gp.screenWidth / 2 - (gp.tileSize * 2) / 2;
-        y += gp.tileSize * 2;
-        g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+        // x = gp.screenWidth / 2 - (gp.tileSize * 2) / 2;
+        // y += gp.tileSize * 2;
+        // g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
     }
 
     public void drawOptions() {
