@@ -119,9 +119,18 @@ public class GamePanel extends JPanel implements Runnable {
         // title screen
         if (gameState == GameState.TITLE) {
             ui.draw(g2);
+        } else if (gameState == GameState.MINI_GAME) {
+            handleMiniGame(g2);
         } else {
             handleGame(g2);
         }
+    }
+
+    public void handleMiniGame(Graphics2D g2) {
+        // ui
+        ui.draw(g2);
+
+        g2.dispose();
     }
 
     public void handleGame(Graphics2D g2) {

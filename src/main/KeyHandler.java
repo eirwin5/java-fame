@@ -74,6 +74,15 @@ public class KeyHandler implements KeyListener {
                         System.exit(0);
                 }
             }
+        } else if (gp.gameState == GameState.MINI_GAME) {
+            switch (code) {
+                case KeyEvent.VK_X:
+                    gp.gameState = GameState.PLAY;
+                    break;
+
+                default:
+                    break;
+            }
         }
 
     }
