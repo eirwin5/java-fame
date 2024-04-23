@@ -76,12 +76,21 @@ public class KeyHandler implements KeyListener {
             }
         } else if (gp.gameState == GameState.MINI_GAME) {
             switch (code) {
-                case KeyEvent.VK_X:
+                case KeyEvent.VK_X -> {
                     gp.gameState = GameState.PLAY;
-                    break;
-
-                default:
-                    break;
+                }
+                case KeyEvent.VK_W, KeyEvent.VK_UP -> {
+                    upPressed = true;
+                }
+                case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
+                    downPressed = true;
+                }
+                case KeyEvent.VK_A, KeyEvent.VK_LEFT -> {
+                    leftPressed = true;
+                }
+                case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> {
+                    rightPressed = true;
+                }
             }
         }
 

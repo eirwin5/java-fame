@@ -1,5 +1,6 @@
 package main;
 
+import entity.Dancer;
 import entity.Entity;
 import entity.Player;
 import minigame.HitBoxManager;
@@ -47,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // Mini game
     public HitBoxManager hitBoxM;
+    public Dancer dancer;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -61,8 +63,12 @@ public class GamePanel extends JPanel implements Runnable {
         assetSetter.setObject();
         assetSetter.setNpc();
         gameState = GameState.TITLE;
-        hitBoxM = new HitBoxManager(this);
         playMusic(SoundType.MUSIC.ordinal());
+    }
+
+    public void setupMiniGame() {
+        hitBoxM = new HitBoxManager(this);
+        dancer = new Dancer(this, keyH);
     }
 
     public void startGameThread() {
@@ -113,6 +119,8 @@ public class GamePanel extends JPanel implements Runnable {
             }
         } else if (gameState == GameState.DIALOGUE) {
             player.update();
+        } else if (gameState == GameState.MINI_GAME) {
+            dancer.update();
         }
 
     }
@@ -134,6 +142,8 @@ public class GamePanel extends JPanel implements Runnable {
     public void handleMiniGame(Graphics2D g2) {
         // hitboxes
         hitBoxM.draw(g2);
+        // dancer
+        dancer.draw(g2);
 
         ui.draw(g2);
 
@@ -170,7 +180,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void playMusic(int i) {
         music.setFile(i);
         // music.play();
-        music.stop();
+        // music.stop();
         // music.loop();
     }
 
