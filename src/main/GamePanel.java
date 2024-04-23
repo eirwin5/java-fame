@@ -16,8 +16,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int tileSize = originalTileSize * scale; // 48x48 tile
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
-    public final int screenWidth = tileSize*maxScreenCol; // 768 pixels
-    public final int screenHeight = tileSize*maxScreenRow; // 576 pixels
+    public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
+    public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
@@ -103,10 +103,10 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == GameState.PLAY) {
             player.update();
             for (Entity o : npc) {
-                if (o != null) o.update();
+                if (o != null)
+                    o.update();
             }
-        }
-        else if (gameState == GameState.DIALOGUE) {
+        } else if (gameState == GameState.DIALOGUE) {
             player.update();
         }
 
@@ -125,37 +125,37 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void handleGame(Graphics2D g2) {
-            // tiles
-            tileM.draw(g2);
+        // tiles
+        tileM.draw(g2);
 
-            // objects
-            for (SuperObject o : obj) {
-                if (o != null) {
-                    o.draw(g2, this);
-                }
+        // objects
+        for (SuperObject o : obj) {
+            if (o != null) {
+                o.draw(g2, this);
             }
-
-            //npc
-            for (Entity n : npc) {
-                if (n != null) {
-                    n.draw(g2);
-                }
-            }
-
-            //player
-            player.draw(g2);
-
-            // ui
-            ui.draw(g2);
-
-            g2.dispose();
         }
+
+        // npc
+        for (Entity n : npc) {
+            if (n != null) {
+                n.draw(g2);
+            }
+        }
+
+        // player
+        player.draw(g2);
+
+        // ui
+        ui.draw(g2);
+
+        g2.dispose();
+    }
 
     public void playMusic(int i) {
         music.setFile(i);
-//        music.play();
+        // music.play();
         music.stop();
-//        music.loop();
+        // music.loop();
     }
 
     public void stopMusic() {

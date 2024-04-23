@@ -37,28 +37,25 @@ public class KeyHandler implements KeyListener {
                     gp.gameState = GameState.PAUSE;
                 }
             }
-        }
-        else if (gp.gameState == GameState.PAUSE) {
-            if (code == KeyEvent.VK_P) gp.gameState = GameState.PLAY;
-        }
-        else if (gp.gameState == GameState.DIALOGUE) {
+        } else if (gp.gameState == GameState.PAUSE) {
+            if (code == KeyEvent.VK_P)
+                gp.gameState = GameState.PLAY;
+        } else if (gp.gameState == GameState.DIALOGUE) {
             if (code == KeyEvent.VK_ENTER) {
                 enterPressed = true;
             } else if (code == KeyEvent.VK_X) {
                 gp.gameState = GameState.PLAY;
             }
-        }
-        else if (gp.gameState == GameState.DIALOGUE_OPTIONS) {
+        } else if (gp.gameState == GameState.DIALOGUE_OPTIONS) {
             if (code == KeyEvent.VK_A) {
                 System.out.println("option A selected");
                 gp.gameState = GameState.PLAY;
             } else if (code == KeyEvent.VK_B) {
                 System.out.println("option B selected");
-//                gp.gameState = GameState.MINI_GAME;
+                gp.gameState = GameState.MINI_GAME;
             }
             gp.optionFlag = false;
-        }
-        else if (gp.gameState == GameState.TITLE) {
+        } else if (gp.gameState == GameState.TITLE) {
             switch (code) {
                 case KeyEvent.VK_W, KeyEvent.VK_UP -> {
                     if (gp.ui.commandNum > 0) {
@@ -73,7 +70,8 @@ public class KeyHandler implements KeyListener {
                 case KeyEvent.VK_ENTER -> {
                     if (gp.ui.commandNum == 0) {
                         gp.gameState = GameState.PLAY;
-                    } else if (gp.ui.commandNum == 1) System.exit(0);
+                    } else if (gp.ui.commandNum == 1)
+                        System.exit(0);
                 }
             }
         }
