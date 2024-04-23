@@ -11,8 +11,7 @@ public class ObjectDoor extends SuperObject {
         try {
             image = ImageIO.read(new File("res/object/door.png"));
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

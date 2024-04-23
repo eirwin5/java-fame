@@ -10,8 +10,7 @@ public class ObjectKey extends SuperObject {
         try {
             image = ImageIO.read(new File("res/object/pompom1.png"));
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         collision = true;

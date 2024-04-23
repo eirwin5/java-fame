@@ -41,8 +41,7 @@ public class TileManager {
 
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(new File("res/tile/sand.png"));
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.getStackTrace();
         }
     }
@@ -73,6 +72,7 @@ public class TileManager {
             e.getStackTrace();
         }
     }
+
     public void draw(Graphics2D g2) {
         int worlCol = 0, worldRow = 0;
         while (worlCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
@@ -83,8 +83,7 @@ public class TileManager {
             int screenX = worldX - gp.player.worldX + gp.player.screenX;
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-            if (gp.checkInView(worldX, worldY)
-            ) {
+            if (gp.checkInView(worldX, worldY)) {
                 g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
             }
             worlCol++;

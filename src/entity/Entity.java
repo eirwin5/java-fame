@@ -24,7 +24,9 @@ public class Entity {
         this.gp = gp;
     }
 
-    public void setAction() {} // used by npc
+    public void setAction() {
+    } // used by npc
+
     public void speak() {
         if (dialogues[dialogueIndex] == null) {
             gp.gameState = GameState.PLAY; // automatically exit the dialogue
@@ -41,7 +43,10 @@ public class Entity {
         }
 
     } // used by npc
-    public void newDialogue() {}
+
+    public void newDialogue() {
+    }
+
     public void update() {
         setAction();
         collisionOn = false;
@@ -62,20 +67,28 @@ public class Entity {
     public void draw(Graphics2D g2) {
         BufferedImage image = switch (direction) {
             case UP -> {
-                if (spriteNum == 1) yield up1;
-                else yield up2;
+                if (spriteNum == 1)
+                    yield up1;
+                else
+                    yield up2;
             }
             case DOWN -> {
-                if (spriteNum == 1) yield down1;
-                else yield down2;
+                if (spriteNum == 1)
+                    yield down1;
+                else
+                    yield down2;
             }
             case LEFT -> {
-                if (spriteNum == 1) yield left1;
-                else yield left2;
+                if (spriteNum == 1)
+                    yield left1;
+                else
+                    yield left2;
             }
             case RIGHT -> {
-                if (spriteNum == 1) yield right1;
-                else yield right2;
+                if (spriteNum == 1)
+                    yield right1;
+                else
+                    yield right2;
             }
         };
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
