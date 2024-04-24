@@ -3,6 +3,7 @@ package main;
 import entity.Dancer;
 import entity.Entity;
 import entity.Player;
+import minigame.Arrows;
 import minigame.HitBoxManager;
 import object.SuperObject;
 import tile.TileManager;
@@ -49,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable {
     // Mini game
     public HitBoxManager hitBoxM;
     public Dancer dancer;
+    public Arrows[] shapes = new Arrows[100];
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -69,6 +71,10 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupMiniGame() {
         hitBoxM = new HitBoxManager(this);
         dancer = new Dancer(this, keyH);
+
+        for (int i = 0; i < 100; i++) {
+            shapes[i] = new Arrows(keyH, this, collisionChecker);
+        }
     }
 
     public void startGameThread() {
@@ -121,6 +127,11 @@ public class GamePanel extends JPanel implements Runnable {
             player.update();
         } else if (gameState == GameState.MINI_GAME) {
             dancer.update();
+            for (Arrows shape : shapes) {
+                if (shape != null) {
+                    shape.update();
+                }
+            }
         }
 
     }
@@ -129,7 +140,6 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        // title screen
         if (gameState == GameState.TITLE) {
             ui.draw(g2);
         } else if (gameState == GameState.MINI_GAME) {
@@ -142,10 +152,15 @@ public class GamePanel extends JPanel implements Runnable {
     public void handleMiniGame(Graphics2D g2) {
         // hitboxes
         hitBoxM.draw(g2);
+
         // dancer
         dancer.draw(g2);
 
         ui.draw(g2);
+
+        for (Arrows shape : shapes) {
+            shape.draw(g2);
+        }
 
         g2.dispose();
     }
