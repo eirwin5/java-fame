@@ -53,6 +53,7 @@ public class KeyHandler implements KeyListener {
             } else if (code == KeyEvent.VK_B) {
                 System.out.println("option B selected");
                 gp.gameState = GameState.MINI_GAME;
+                gp.timeMiniGameStarted = System.currentTimeMillis();
             }
             gp.optionFlag = false;
         } else if (gp.gameState == GameState.TITLE) {

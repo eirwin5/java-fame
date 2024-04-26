@@ -51,6 +51,7 @@ public class GamePanel extends JPanel implements Runnable {
     public HitBoxManager hitBoxM;
     public Dancer dancer;
     public Arrows[] shapes = new Arrows[100];
+    public long timeMiniGameStarted = 0;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -129,7 +130,8 @@ public class GamePanel extends JPanel implements Runnable {
             dancer.update();
             for (Arrows shape : shapes) {
                 if (shape != null) {
-                    shape.update();
+                    if (System.currentTimeMillis() > timeMiniGameStarted + shape.time)
+                        shape.update();
                 }
             }
         }

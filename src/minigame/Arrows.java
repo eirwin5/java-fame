@@ -15,6 +15,7 @@ public class Arrows {
     public int screenX;
     public int screenY;
     public int speed;
+    public int time;
     public boolean collisionOn = false;
     KeyHandler keyH;
     GamePanel gp;
@@ -26,7 +27,7 @@ public class Arrows {
         keyH = keyH_in;
         gp = gp_in;
         collisionChecker = collisionChecker_in;
-        screenY = -2 * gp.tileSize;
+        screenY = -4 * gp.tileSize;
         direction = getRandomDirection();
 
         try {
@@ -54,6 +55,9 @@ public class Arrows {
 
         Random rand = new Random();
         speed = rand.nextInt((7 - 5) + 1) + 5;
+
+        time = rand.nextInt((100000 - 100) + 1) + 100;
+        System.out.println(time);
     }
 
     private Direction getRandomDirection() {
