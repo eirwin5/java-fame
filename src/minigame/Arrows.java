@@ -1,13 +1,11 @@
 package minigame;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Random;
-
 import javax.imageio.ImageIO;
-
-import main.CollisionChecker;
 import main.GamePanel;
 import main.KeyHandler;
 
@@ -20,13 +18,14 @@ public class Arrows {
     KeyHandler keyH;
     GamePanel gp;
     Direction direction;
-    CollisionChecker collisionChecker;
+    HitBoxManager hitBoxManager;
     BufferedImage img;
+    public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
 
-    public Arrows(KeyHandler keyH_in, GamePanel gp_in, CollisionChecker collisionChecker_in) {
+    public Arrows(KeyHandler keyH_in, GamePanel gp_in, HitBoxManager hitBoxManager_in) {
         keyH = keyH_in;
         gp = gp_in;
-        collisionChecker = collisionChecker_in;
+        hitBoxManager = hitBoxManager_in;
         screenY = -4 * gp.tileSize;
         direction = getRandomDirection();
 
@@ -78,7 +77,36 @@ public class Arrows {
     }
 
     public void update() {
+        if (direction == Direction.UP && keyH.upPressed) {
+            if (this.solidArea.intersects(hitBoxManager.getHitBoxSolidArea(Direction.UP))) {
+                this.screenY = -4 * gp.tileSize;
+                gp.arrowsCollected++;
+            }
+        } else if (direction == Direction.DOWN && keyH.downPressed) {
+            if (this.solidArea.intersects(hitBoxManager.getHitBoxSolidArea(Direction.DOWN))) {
+                this.screenY = -4 * gp.tileSize;
+                gp.arrowsCollected++;
+            }
+        } else if (direction == Direction.RIGHT && keyH.rightPressed) {
+            if (this.solidArea.intersects(hitBoxManager.getHitBoxSolidArea(Direction.RIGHT))) {
+                this.screenY = -4 * gp.tileSize;
+                gp.arrowsCollected++;
+
+            }
+        } else if (direction == Direction.LEFT && keyH.leftPressed) {
+            if (this.solidArea.intersects(hitBoxManager.getHitBoxSolidArea(Direction.LEFT))) {
+                this.screenY = -4 * gp.tileSize;
+                gp.arrowsCollected++;
+            }
+        }
         screenY += speed;
+        this.solidArea.x = screenX;
+        this.solidArea.y = screenY;
+
+        if (this.screenY > gp.screenHeight) {
+            this.screenY = -4 * gp.tileSize;
+            gp.arrowsMissed++;
+        }
     }
 
     public void draw(Graphics2D g2) {

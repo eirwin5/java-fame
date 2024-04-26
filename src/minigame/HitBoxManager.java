@@ -1,7 +1,7 @@
 package minigame;
 
 import java.awt.Graphics2D;
-
+import java.awt.Rectangle;
 import main.GamePanel;
 
 public class HitBoxManager {
@@ -30,7 +30,10 @@ public class HitBoxManager {
 
         x = keys_x_center - (gp.tileSize * 4);
         hitBoxes[Direction.LEFT.ordinal()] = new HitBox(x, y, Direction.LEFT, "res/shapes/LeftHB.png");
+    }
 
+    public Rectangle getHitBoxSolidArea(Direction dir) {
+        return hitBoxes[dir.ordinal()].solidArea;
     }
 
     public void draw(Graphics2D g2) {

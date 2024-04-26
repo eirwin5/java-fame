@@ -53,18 +53,21 @@ public class UI {
     }
 
     public void drawMiniGameScreen() {
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 84F));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 36F));
         g2.setColor(Color.white);
+        g2.drawString(STR."Score: \{gp.arrowsCollected}", gp.tileSize * 4, 65);
 
-        // String text = "Mini Game Time!";
-        // int x = getXForCenterText(text);
-        // int y = gp.tileSize * 3;
-        // g2.drawString(text, x, y);
-
-        // pic
-        // x = gp.screenWidth / 2 - (gp.tileSize * 2) / 2;
-        // y += gp.tileSize * 2;
-        // g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+        if (gp.arrowsMissed > 0) {
+            g2.drawImage(keyImage, gp.screenWidth - 16 - gp.tileSize, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
+        }
+        if (gp.arrowsMissed > 1) {
+            g2.drawImage(keyImage, gp.screenWidth - 16 - (gp.tileSize * 2), gp.tileSize / 2, gp.tileSize, gp.tileSize,
+                    null);
+        }
+        if (gp.arrowsMissed > 2) {
+            g2.drawImage(keyImage, gp.screenWidth - 16 - (gp.tileSize * 3), gp.tileSize / 2, gp.tileSize, gp.tileSize,
+                    null);
+        }
     }
 
     public void drawOptions() {
