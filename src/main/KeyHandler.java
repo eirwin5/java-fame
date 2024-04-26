@@ -37,28 +37,24 @@ public class KeyHandler implements KeyListener {
                     gp.gameState = GameState.PAUSE;
                 }
             }
-        }
-        else if (gp.gameState == GameState.PAUSE) {
-            if (code == KeyEvent.VK_P) gp.gameState = GameState.PLAY;
-        }
-        else if (gp.gameState == GameState.DIALOGUE) {
+        } else if (gp.gameState == GameState.PAUSE) {
+            if (code == KeyEvent.VK_P)
+                gp.gameState = GameState.PLAY;
+        } else if (gp.gameState == GameState.DIALOGUE) {
             if (code == KeyEvent.VK_ENTER) {
                 enterPressed = true;
             } else if (code == KeyEvent.VK_X) {
                 gp.gameState = GameState.PLAY;
             }
-        }
-        else if (gp.gameState == GameState.DIALOGUE_OPTIONS) {
+        } else if (gp.gameState == GameState.DIALOGUE_OPTIONS) {
             if (code == KeyEvent.VK_A) {
-                System.out.println("option A selected");
                 gp.gameState = GameState.PLAY;
             } else if (code == KeyEvent.VK_B) {
-                System.out.println("option B selected");
-//                gp.gameState = GameState.MINI_GAME;
+                gp.gameState = GameState.MINI_GAME;
+                gp.timeMiniGameStarted = System.currentTimeMillis();
             }
             gp.optionFlag = false;
-        }
-        else if (gp.gameState == GameState.TITLE) {
+        } else if (gp.gameState == GameState.TITLE) {
             switch (code) {
                 case KeyEvent.VK_W, KeyEvent.VK_UP -> {
                     if (gp.ui.commandNum > 0) {
@@ -73,11 +69,47 @@ public class KeyHandler implements KeyListener {
                 case KeyEvent.VK_ENTER -> {
                     if (gp.ui.commandNum == 0) {
                         gp.gameState = GameState.PLAY;
-                    } else if (gp.ui.commandNum == 1) System.exit(0);
+                    } else if (gp.ui.commandNum == 1)
+                        System.exit(0);
+                }
+            }
+        } else if (gp.gameState == GameState.MINI_GAME) {
+            switch (code) {
+                case KeyEvent.VK_X -> {
+                    gp.gameState = GameState.PLAY;
+                }
+                case KeyEvent.VK_W, KeyEvent.VK_UP -> {
+                    upPressed = true;
+                }
+                case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
+                    downPressed = true;
+                }
+                case KeyEvent.VK_A, KeyEvent.VK_LEFT -> {
+                    leftPressed = true;
+                }
+                case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> {
+                    rightPressed = true;
+                }
+            }
+        } else if (gp.gameState == GameState.GAME_OVER) {
+            switch (code) {
+                case KeyEvent.VK_W, KeyEvent.VK_UP -> {
+                    if (gp.ui.commandNum > 0) {
+                        gp.ui.commandNum--;
+                    }
+                }
+                case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
+                    if (gp.ui.commandNum < 1) {
+                        gp.ui.commandNum++;
+                    }
+                }
+                case KeyEvent.VK_ENTER -> {
+                    if (gp.ui.commandNum == 0) {
+                    } else if (gp.ui.commandNum == 1)
+                        System.exit(0);
                 }
             }
         }
-
     }
 
     @Override

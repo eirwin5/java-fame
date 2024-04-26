@@ -22,10 +22,10 @@ public class Player extends Entity {
         this.gp = gp;
         this.keyH = keyH;
 
-        screenX = gp.screenWidth / 2 - (gp.tileSize /2);
-        screenY = gp.screenHeight / 2 - (gp.tileSize /2);
+        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
-        solidArea = new Rectangle(8,16,32, 32);
+        solidArea = new Rectangle(8, 16, 32, 32);
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
@@ -50,8 +50,7 @@ public class Player extends Entity {
             right2 = ImageIO.read(new File("res/player/girl_right_2.png"));
             left1 = ImageIO.read(new File("res/player/girl_left_1.png"));
             left2 = ImageIO.read(new File("res/player/girl_left_2.png"));
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -132,20 +131,28 @@ public class Player extends Entity {
     public void draw(Graphics2D g2) {
         BufferedImage image = switch (direction) {
             case UP -> {
-                if (spriteNum == 1) yield up1;
-                else yield up2;
+                if (spriteNum == 1)
+                    yield up1;
+                else
+                    yield up2;
             }
             case DOWN -> {
-                if (spriteNum == 1) yield down1;
-                else yield down2;
+                if (spriteNum == 1)
+                    yield down1;
+                else
+                    yield down2;
             }
             case LEFT -> {
-                if (spriteNum == 1) yield left1;
-                else yield left2;
+                if (spriteNum == 1)
+                    yield left1;
+                else
+                    yield left2;
             }
             case RIGHT -> {
-                if (spriteNum == 1) yield right1;
-                else yield right2;
+                if (spriteNum == 1)
+                    yield right1;
+                else
+                    yield right2;
             }
         };
 
@@ -158,8 +165,7 @@ public class Player extends Entity {
                 gp.npc[i].newDialogue();
                 gp.npc[i].speak();
                 gp.keyH.enterPressed = false;
-            }
-            else {
+            } else {
                 gp.gameState = GameState.DIALOGUE;
                 gp.npc[i].speak();
             }

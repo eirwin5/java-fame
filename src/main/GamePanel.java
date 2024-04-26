@@ -1,7 +1,10 @@
 package main;
 
+import entity.Dancer;
 import entity.Entity;
 import entity.Player;
+import minigame.Arrows;
+import minigame.HitBoxManager;
 import object.SuperObject;
 import tile.TileManager;
 
@@ -16,8 +19,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int tileSize = originalTileSize * scale; // 48x48 tile
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
-    public final int screenWidth = tileSize*maxScreenCol; // 768 pixels
-    public final int screenHeight = tileSize*maxScreenRow; // 576 pixels
+    public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
+    public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
@@ -44,6 +47,14 @@ public class GamePanel extends JPanel implements Runnable {
     public GameState gameState;
     public boolean optionFlag = false;
 
+    // Mini game
+    public HitBoxManager hitBoxM;
+    public Dancer dancer;
+    public Arrows[] shapes = new Arrows[100];
+    public long timeMiniGameStarted = 0;
+    public int arrowsCollected = 0;
+    public int arrowsMissed = 0;
+
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
@@ -58,6 +69,15 @@ public class GamePanel extends JPanel implements Runnable {
         assetSetter.setNpc();
         gameState = GameState.TITLE;
         playMusic(SoundType.MUSIC.ordinal());
+    }
+
+    public void setupMiniGame() {
+        hitBoxM = new HitBoxManager(this);
+        dancer = new Dancer(this, keyH);
+
+        for (int i = 0; i < 100; i++) {
+            shapes[i] = new Arrows(keyH, this, hitBoxM);
+        }
     }
 
     public void startGameThread() {
@@ -103,11 +123,27 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == GameState.PLAY) {
             player.update();
             for (Entity o : npc) {
-                if (o != null) o.update();
+                if (o != null)
+                    o.update();
             }
-        }
-        else if (gameState == GameState.DIALOGUE) {
+        } else if (gameState == GameState.DIALOGUE) {
             player.update();
+        } else if (gameState == GameState.MINI_GAME) {
+            dancer.update();
+            for (Arrows shape : shapes) {
+                if (shape != null) {
+                    if (System.currentTimeMillis() > timeMiniGameStarted + shape.time)
+                        shape.update();
+                }
+            }
+
+            if (arrowsMissed > 2) {
+                gameState = GameState.GAME_OVER;
+            }
+
+            if (arrowsCollected > 5) {
+                gameState = GameState.PLAY;
+            }
         }
 
     }
@@ -116,46 +152,63 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        // title screen
         if (gameState == GameState.TITLE) {
             ui.draw(g2);
+        } else if (gameState == GameState.MINI_GAME) {
+            handleMiniGame(g2);
         } else {
             handleGame(g2);
         }
     }
 
-    public void handleGame(Graphics2D g2) {
-            // tiles
-            tileM.draw(g2);
+    public void handleMiniGame(Graphics2D g2) {
+        // hitboxes
+        hitBoxM.draw(g2);
 
-            // objects
-            for (SuperObject o : obj) {
-                if (o != null) {
-                    o.draw(g2, this);
-                }
-            }
+        // dancer
+        dancer.draw(g2);
 
-            //npc
-            for (Entity n : npc) {
-                if (n != null) {
-                    n.draw(g2);
-                }
-            }
+        ui.draw(g2);
 
-            //player
-            player.draw(g2);
-
-            // ui
-            ui.draw(g2);
-
-            g2.dispose();
+        for (Arrows shape : shapes) {
+            shape.draw(g2);
         }
+
+        g2.dispose();
+    }
+
+    public void handleGame(Graphics2D g2) {
+        // tiles
+        tileM.draw(g2);
+
+        // objects
+        for (SuperObject o : obj) {
+            if (o != null) {
+                o.draw(g2, this);
+            }
+        }
+
+        // npc
+        for (Entity n : npc) {
+            if (n != null) {
+                n.draw(g2);
+            }
+        }
+
+        // player
+        player.draw(g2);
+
+        // ui
+        ui.draw(g2);
+
+        g2.dispose();
+    }
 
     public void playMusic(int i) {
         music.setFile(i);
-//        music.play();
-        music.stop();
-//        music.loop();
+        // music.play();
+        // music.stop();
+        // music.loop();
     }
 
     public void stopMusic() {

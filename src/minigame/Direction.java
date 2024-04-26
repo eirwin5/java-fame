@@ -1,4 +1,4 @@
-package entity;
+package minigame;
 
 public enum Direction {
     UP,
