@@ -39,13 +39,13 @@ public class Arrows {
                     this.screenX = 505 - gp.tileSize;
                     this.img = ImageIO.read(new File("res/shapes/downFall.png"));
                     break;
-                case LEFT:
-                    this.screenX = 505 - (gp.tileSize * 4);
-                    this.img = ImageIO.read(new File("res/shapes/leftFall.png"));
                 case RIGHT:
                     this.screenX = 505 + (gp.tileSize * 2);
                     this.img = ImageIO.read(new File("res/shapes/rightFall.png"));
-                default:
+                    break;
+                case LEFT:
+                    this.screenX = 505 - (gp.tileSize * 4);
+                    this.img = ImageIO.read(new File("res/shapes/leftFall.png"));
                     break;
             }
         } catch (Exception e) {
