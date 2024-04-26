@@ -49,6 +49,42 @@ public class UI {
                 break;
             case MINI_GAME:
                 drawMiniGameScreen();
+                break;
+            case GAME_OVER:
+                drawGameOverScreen();
+                break;
+        }
+    }
+
+    public void drawGameOverScreen() {
+        // title
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
+        String text = "Game Over";
+        int x = getXForCenterText(text);
+        int y = gp.tileSize * 3;
+        g2.drawString(text, x, y);
+
+        // pic
+        x = gp.screenWidth / 2 - (gp.tileSize * 2) / 2;
+        y += gp.tileSize * 2;
+        g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+
+        // menu
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+        text = "Try again";
+        x = getXForCenterText(text);
+        y += gp.tileSize * 4;
+        g2.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+
+        text = "Quit";
+        x = getXForCenterText(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if (commandNum == 1) {
+            g2.drawString(">", x - gp.tileSize, y);
         }
     }
 
@@ -139,7 +175,6 @@ public class UI {
         if (commandNum == 1) {
             g2.drawString(">", x - gp.tileSize, y);
         }
-
     }
 
     public void drawDialogueScreen() {

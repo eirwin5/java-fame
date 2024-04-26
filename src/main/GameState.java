@@ -7,4 +7,5 @@ public enum GameState {
     DIALOGUE,
     DIALOGUE_OPTIONS,
     MINI_GAME,
+    GAME_OVER
 }

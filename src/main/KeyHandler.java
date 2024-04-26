@@ -91,8 +91,25 @@ public class KeyHandler implements KeyListener {
                     rightPressed = true;
                 }
             }
+        } else if (gp.gameState == GameState.GAME_OVER) {
+            switch (code) {
+                case KeyEvent.VK_W, KeyEvent.VK_UP -> {
+                    if (gp.ui.commandNum > 0) {
+                        gp.ui.commandNum--;
+                    }
+                }
+                case KeyEvent.VK_S, KeyEvent.VK_DOWN -> {
+                    if (gp.ui.commandNum < 1) {
+                        gp.ui.commandNum++;
+                    }
+                }
+                case KeyEvent.VK_ENTER -> {
+                    if (gp.ui.commandNum == 0) {
+                    } else if (gp.ui.commandNum == 1)
+                        System.exit(0);
+                }
+            }
         }
-
     }
 
     @Override
