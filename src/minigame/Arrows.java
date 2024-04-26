@@ -54,9 +54,7 @@ public class Arrows {
 
         Random rand = new Random();
         speed = rand.nextInt((7 - 5) + 1) + 5;
-
         time = rand.nextInt((100000 - 100) + 1) + 100;
-        System.out.println(time);
     }
 
     private Direction getRandomDirection() {

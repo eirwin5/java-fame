@@ -48,10 +48,8 @@ public class KeyHandler implements KeyListener {
             }
         } else if (gp.gameState == GameState.DIALOGUE_OPTIONS) {
             if (code == KeyEvent.VK_A) {
-                System.out.println("option A selected");
                 gp.gameState = GameState.PLAY;
             } else if (code == KeyEvent.VK_B) {
-                System.out.println("option B selected");
                 gp.gameState = GameState.MINI_GAME;
                 gp.timeMiniGameStarted = System.currentTimeMillis();
             }
