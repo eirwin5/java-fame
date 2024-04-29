@@ -15,32 +15,43 @@ public class TileManager {
         this.gp = gp;
         tile = new Tile[10]; // create 10 kinds of tiles
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
-        loadMap("world01");
+        loadMap("world02");
         getTileImage();
     }
 
     public void getTileImage() {
         try {
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(new File("res/tile/grass.png"));
+            tile[0].image = ImageIO.read(new File("res/tile/tree.png"));
+            tile[0].collision = true;
 
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(new File("res/tile/wall.png"));
             tile[1].collision = true;
 
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(new File("res/tile/water.png"));
-            tile[2].collision = true;
+            tile[2].image = ImageIO.read(new File("res/tile/tilefloor.png"));
 
             tile[3] = new Tile();
-            tile[3].image = ImageIO.read(new File("res/tile/earth.png"));
+            tile[3].image = ImageIO.read(new File("res/tile/path.png"));
 
             tile[4] = new Tile();
-            tile[4].image = ImageIO.read(new File("res/tile/tree.png"));
-            tile[4].collision = true;
+            tile[4].image = ImageIO.read(new File("res/tile/road.png"));
 
             tile[5] = new Tile();
-            tile[5].image = ImageIO.read(new File("res/tile/sand.png"));
+            tile[5].image = ImageIO.read(new File("res/tile/woodfloor.png"));
+
+            tile[6] = new Tile();
+            tile[6].image = ImageIO.read(new File("res/tile/grass.png"));
+
+            tile[7] = new Tile();
+            tile[7].image = ImageIO.read(new File("res/tile/water.png"));
+            tile[7].collision = true;
+
+            tile[8] = new Tile();
+            tile[8].image = ImageIO.read(new File("res/tile/flowers.png"));
+            tile[8].collision = true;
+
         } catch (Exception e) {
             e.getStackTrace();
         }
