@@ -11,7 +11,7 @@ public class Npc1 extends Entity {
         super(gp);
 
         direction = Direction.DOWN;
-        speed = 1;
+        speed = 0;
         getNpcImage();
         setDialogue();
     }
