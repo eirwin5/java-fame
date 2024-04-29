@@ -42,14 +42,14 @@ public class Npc2 extends Entity {
 
     public void getNpcImage() {
         try {
-            up1 = ImageIO.read(new File("res/npc/oldman_up_1.png"));
-            up2 = ImageIO.read(new File("res/npc/oldman_up_2.png"));
-            down1 = ImageIO.read(new File("res/npc/oldman_down_1.png"));
-            down2 = ImageIO.read(new File("res/npc/oldman_down_2.png"));
-            right1 = ImageIO.read(new File("res/npc/oldman_right_1.png"));
-            right2 = ImageIO.read(new File("res/npc/oldman_right_2.png"));
-            left1 = ImageIO.read(new File("res/npc/oldman_left_1.png"));
-            left2 = ImageIO.read(new File("res/npc/oldman_left_2.png"));
+            up1 = ImageIO.read(new File("res/npc/coach_up_1.png"));
+            up2 = ImageIO.read(new File("res/npc/coach_up_2.png"));
+            down1 = ImageIO.read(new File("res/npc/coach_down_1.png"));
+            down2 = ImageIO.read(new File("res/npc/coach_down_2.png"));
+            right1 = ImageIO.read(new File("res/npc/coach_right_1.png"));
+            right2 = ImageIO.read(new File("res/npc/coach_right_2.png"));
+            left1 = ImageIO.read(new File("res/npc/coach_left_1.png"));
+            left2 = ImageIO.read(new File("res/npc/coach_left_2.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
