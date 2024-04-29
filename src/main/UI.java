@@ -91,7 +91,7 @@ public class UI {
     public void drawMiniGameScreen() {
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 36F));
         g2.setColor(Color.white);
-        g2.drawString(STR."Score: \{gp.arrowsCollected}", gp.tileSize * 4, 65);
+        g2.drawString(STR."Score: \{gp.arrowsCollected}", gp.tileSize / 2, 65);
 
         if (gp.arrowsMissed > 0) {
             g2.drawImage(keyImage, gp.screenWidth - 16 - gp.tileSize, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
