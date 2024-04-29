@@ -14,6 +14,9 @@ public class Sound {
         soundURL[SoundType.COIN.ordinal()] = new File("res/sound/coin.wav");
         soundURL[SoundType.UNLOCK.ordinal()] = new File("res/sound/unlock.wav");
         soundURL[SoundType.FANFARE.ordinal()] = new File("res/sound/fanfare.wav");
+        soundURL[SoundType.GAME_OVER.ordinal()] = new File("res/sound/gameover.wav");
+        soundURL[SoundType.SPEAK.ordinal()] = new File("res/sound/speak.wav");
+        soundURL[SoundType.MISSED.ordinal()] = new File("res/sound/blocked.wav");
     }
 
     public void setFile(int i) {
