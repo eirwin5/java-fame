@@ -27,14 +27,14 @@ public class Dancer extends Entity {
 
     public void getDancerImage() {
         try {
-            up1 = ImageIO.read(new File("res/player/girl_up_1.png"));
-            up2 = ImageIO.read(new File("res/player/girl_up_2.png"));
-            down1 = ImageIO.read(new File("res/player/girl_down_1.png"));
-            down2 = ImageIO.read(new File("res/player/girl_down_2.png"));
-            right1 = ImageIO.read(new File("res/player/girl_right_1.png"));
-            right2 = ImageIO.read(new File("res/player/girl_right_2.png"));
-            left1 = ImageIO.read(new File("res/player/girl_left_1.png"));
-            left2 = ImageIO.read(new File("res/player/girl_left_2.png"));
+            up1 = ImageIO.read(new File("res/player/dancer_1.png"));
+            up2 = ImageIO.read(new File("res/player/dancer_2.png"));
+            down1 = ImageIO.read(new File("res/player/dancer_3.png"));
+            down2 = ImageIO.read(new File("res/player/dancer_4.png"));
+            right1 = ImageIO.read(new File("res/player/dancer_5.png"));
+            right2 = ImageIO.read(new File("res/player/dancer_6.png"));
+            left1 = ImageIO.read(new File("res/player/dancer_7.png"));
+            left2 = ImageIO.read(new File("res/player/dancer_8.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
