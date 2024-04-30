@@ -1,7 +1,10 @@
 package object;
 
 public enum ObjectType {
-    KEY,
-    DOOR,
-    CHEST
+    UNIFORM,
+    POMPOM,
+    MEGAPHONE,
+    BOW,
+    HEART_BLANK,
+    HEART_FULL
 }

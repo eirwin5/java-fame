@@ -1,6 +1,6 @@
 package main;
 
-import object.ObjectKey;
+import object.ObjectPomPom;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,7 +20,7 @@ public class UI {
         this.gp = gp;
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80 = new Font("Arial", Font.PLAIN, 80);
-        ObjectKey key = new ObjectKey();
+        ObjectPomPom key = new ObjectPomPom();
         keyImage = key.image;
     }
 
@@ -130,12 +130,13 @@ public class UI {
     public void drawPlayScreen() {
         g2.setFont(arial_40);
         g2.setColor(Color.white);
-        g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
-        g2.drawString(STR."x \{gp.player.hasKey}", 74, 65);
+        // g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize,
+        // gp.tileSize, null);
+        // g2.drawString(STR."x \{gp.player.has}", 74, 65);
         // if (gp.gameState != GameState.PAUSE) {
         // playtime += (double) 1 / 60;
         // }
-        // g2.drawString(STR."Time: \{format.format(playtime)}", gp.tileSize*11, 65);
+        // g2.drawString(STR."Time: \{format.format(playtime)}", gp.tileSize * 11, 65);
 
     }
 

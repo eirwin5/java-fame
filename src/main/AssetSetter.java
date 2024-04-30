@@ -2,9 +2,10 @@ package main;
 
 import entity.Npc1;
 import entity.Npc2;
-import object.ObjectChest;
-import object.ObjectDoor;
-import object.ObjectKey;
+import object.ObjectBow;
+import object.ObjectMegaphone;
+import object.ObjectPomPom;
+import object.ObjectUniform;
 
 public class AssetSetter {
     GamePanel gp;
@@ -14,33 +15,21 @@ public class AssetSetter {
     }
 
     public void setObject() {
-        // gp.obj[0] = new ObjectKey();
-        // gp.obj[0].worldX = 23 * gp.tileSize;
-        // gp.obj[0].worldY = 7 * gp.tileSize;
+        gp.obj[0] = new ObjectPomPom();
+        gp.obj[0].worldX = 23 * gp.tileSize;
+        gp.obj[0].worldY = 7 * gp.tileSize;
 
-        // gp.obj[1] = new ObjectKey();
-        // gp.obj[1].worldX = 23 * gp.tileSize;
-        // gp.obj[1].worldY = 40 * gp.tileSize;
+        gp.obj[1] = new ObjectMegaphone();
+        gp.obj[1].worldX = 38 * gp.tileSize;
+        gp.obj[1].worldY = 8 * gp.tileSize;
 
-        // gp.obj[2] = new ObjectKey();
-        // gp.obj[2].worldX = 38 * gp.tileSize;
-        // gp.obj[2].worldY = 8 * gp.tileSize;
+        gp.obj[2] = new ObjectUniform();
+        gp.obj[2].worldX = 21 * gp.tileSize;
+        gp.obj[2].worldY = 29 * gp.tileSize;
 
-        // gp.obj[3] = new ObjectDoor();
-        // gp.obj[3].worldX = 10 * gp.tileSize;
-        // gp.obj[3].worldY = 11 * gp.tileSize;
-
-        // gp.obj[4] = new ObjectDoor();
-        // gp.obj[4].worldX = 8 * gp.tileSize;
-        // gp.obj[4].worldY = 38 * gp.tileSize;
-
-        // gp.obj[5] = new ObjectDoor();
-        // gp.obj[5].worldX = 12 * gp.tileSize;
-        // gp.obj[5].worldY = 22 * gp.tileSize;
-
-        // gp.obj[6] = new ObjectChest();
-        // gp.obj[6].worldX = 10 * gp.tileSize;
-        // gp.obj[6].worldY = 7 * gp.tileSize;
+        gp.obj[3] = new ObjectBow();
+        gp.obj[3].worldX = 9 * gp.tileSize;
+        gp.obj[3].worldY = 36 * gp.tileSize;
     }
 
     public void setNpc() {

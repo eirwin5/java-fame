@@ -15,7 +15,10 @@ public class Player extends Entity {
 
     public final int screenX, screenY;
     KeyHandler keyH;
-    public int hasKey = 0;
+    public boolean hasPompom = false;
+    public boolean hasBow = false;
+    public boolean hasUniform = false;
+    public boolean hasMegaphone = false;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -109,19 +112,29 @@ public class Player extends Entity {
         if (index != 999) {
             ObjectType objectType = gp.obj[index].type;
             switch (objectType) {
-                case DOOR:
-                    if (hasKey > 0) {
-                        gp.obj[index] = null;
-                        gp.playSoundEffect(SoundType.UNLOCK.ordinal());
-                        hasKey--;
-                    }
-                    break;
-                case KEY:
-                    hasKey++;
+                case POMPOM:
+                    hasPompom = true;
                     gp.playSoundEffect(SoundType.COIN.ordinal());
                     gp.obj[index] = null;
                     break;
-                case CHEST:
+                case UNIFORM:
+                    hasUniform = true;
+                    gp.playSoundEffect(SoundType.COIN.ordinal());
+                    gp.obj[index] = null;
+                    break;
+                case MEGAPHONE:
+                    hasMegaphone = true;
+                    gp.playSoundEffect(SoundType.COIN.ordinal());
+                    gp.obj[index] = null;
+                    break;
+                case BOW:
+                    hasBow = true;
+                    gp.playSoundEffect(SoundType.COIN.ordinal());
+                    gp.obj[index] = null;
+                    break;
+                case HEART_BLANK:
+                    break;
+                case HEART_FULL:
                     break;
             }
 
