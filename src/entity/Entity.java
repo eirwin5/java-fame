@@ -40,7 +40,9 @@ public class Entity {
 
     public void newDialogue() {
         dialogueIndex++;
-        gp.playSpeakSound();
+        if (dialogues[dialogueIndex] != null) {
+            gp.playSpeakSound();
+        }
     }
 
     public void setNewDialogue() {
