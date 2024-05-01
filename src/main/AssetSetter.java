@@ -41,4 +41,15 @@ public class AssetSetter {
         gp.npc[1].worldX = 38 * gp.tileSize;
         gp.npc[1].worldY = 36 * gp.tileSize;
     }
+
+    public void resetAssets() {
+        gp.obj[0] = null;
+        gp.obj[1] = null;
+        gp.obj[2] = null;
+        gp.obj[3] = null;
+        gp.npc[0] = null;
+        gp.npc[1] = null;
+        setObject();
+        setNpc();
+    }
 }
