@@ -91,7 +91,9 @@ public class Player extends Entity {
             gp.collisionChecker.checkTile(this);
 
             // object collision
-            pickUpObject(gp.collisionChecker.checkObject(this, true));
+            if (gp.treasureHunt) {
+                pickUpObject(gp.collisionChecker.checkObject(this, true));
+            }
 
             // npc collision
             int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
