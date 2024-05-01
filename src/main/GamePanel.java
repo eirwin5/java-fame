@@ -137,7 +137,7 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
 
-            if (arrowsMissed > 2) {
+            if (arrowsMissed > 3) {
                 gameState = GameState.GAME_OVER;
             }
 
