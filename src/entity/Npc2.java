@@ -56,7 +56,7 @@ public class Npc2 extends Entity {
     }
 
     public void setDialogue() {
-        dialogues[0] = "I'm sorry I'm too busy to talk right now.";
+        dialogues[0] = "I'm sorry I'm too busy to talk right now.\n (Press enter)";
     }
 
     public void setNewDialogue() {
