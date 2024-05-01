@@ -144,7 +144,7 @@ public class UI {
         // menu
         g2.setColor(commandNum == 0 ? darkPink : teal);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
-        text = "Try again";
+        text = "Play again";
         x = getXForCenterText(text);
         y += gp.tileSize * 4;
         g2.drawString(text, x, y);
@@ -186,7 +186,7 @@ public class UI {
         // menu
         g2.setColor(commandNum == 0 ? teal : darkPink);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
-        text = "Play again";
+        text = "Try again";
         x = getXForCenterText(text);
         y += gp.tileSize * 4;
         g2.drawString(text, x, y);
