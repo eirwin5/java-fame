@@ -10,9 +10,9 @@ public class Sound {
     File[] soundURL = new File[30];
 
     public Sound() {
-        soundURL[SoundType.MUSIC.ordinal()] = new File("res/sound/BlueBoyAdventure.wav");
+        soundURL[SoundType.MUSIC.ordinal()] = new File("res/sound/bgMusic.wav");
+        soundURL[SoundType.MINI_GAME_MUSIC.ordinal()] = new File("res/sound/song.wav");
         soundURL[SoundType.COIN.ordinal()] = new File("res/sound/coin.wav");
-        soundURL[SoundType.UNLOCK.ordinal()] = new File("res/sound/unlock.wav");
         soundURL[SoundType.FANFARE.ordinal()] = new File("res/sound/fanfare.wav");
         soundURL[SoundType.GAME_OVER.ordinal()] = new File("res/sound/gameover.wav");
         soundURL[SoundType.SPEAK.ordinal()] = new File("res/sound/speak.wav");

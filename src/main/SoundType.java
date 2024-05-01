@@ -4,7 +4,6 @@ public enum SoundType {
     MUSIC,
     MINI_GAME_MUSIC,
     COIN,
-    UNLOCK,
     FANFARE,
     GAME_OVER,
     SPEAK,
