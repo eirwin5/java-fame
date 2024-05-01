@@ -112,6 +112,7 @@ public class KeyHandler implements KeyListener {
                     }
                     case KeyEvent.VK_ENTER -> {
                         if (gp.ui.commandNum == 0) {
+                            gp.resetGame();
                         } else if (gp.ui.commandNum == 1)
                             System.exit(0);
                     }

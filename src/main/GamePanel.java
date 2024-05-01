@@ -66,6 +66,22 @@ public class GamePanel extends JPanel implements Runnable {
         this.gameState = GameState.TITLE;
     }
 
+    public void resetGame() {
+        assetSetter.resetAssets();
+        arrowsCollected = 0;
+        arrowsCollected = 0;
+        arrowsMissed = 0;
+        timeMiniGameStarted = 0;
+        treasureHunt = false;
+        tryouts = false;
+        optionFlag = false;
+        shapes = null;
+        shapes = new Arrows[100];
+        setupMiniGame();
+        gameState = GameState.TITLE;
+        playMusic(SoundType.MUSIC.ordinal());
+    }
+
     public void setupGame() {
         assetSetter.setObject();
         assetSetter.setNpc();
