@@ -56,7 +56,7 @@ public class Npc1 extends Entity {
     }
 
     public void setDialogue() {
-        dialogues[0] = "Hello! You must be the new girl!\nI'm Tasha, nice to meet you.";
+        dialogues[0] = "Hello! You must be the new girl!\nI'm Tasha, nice to meet you.\n(Press enter)";
         dialogues[1] = "Oh you want to join the cheer team?\nThat's great. Just go to--";
         dialogues[2] = "Oh no! I just realized I was supposed\nto bring Coach Tammy the equipment\nfor tryouts! I lost it all in the\nwoods nearby!";
         dialogues[3] = "I'm so busy over here. Would\nyou be able to go find them and bring\nthem to Coach? It would\nprobably give you a leg up in tryouts.";
@@ -65,7 +65,7 @@ public class Npc1 extends Entity {
     }
 
     public void setNewDialogue() {
-        dialogues[0] = "Did you get them to her yet?\nIt's very important!";
+        dialogues[0] = "Did you get them to her yet?\nIt's very important!\n";
         dialogues[1] = null;
         dialogues[2] = null;
         dialogues[3] = null;
