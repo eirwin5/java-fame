@@ -59,8 +59,6 @@ public class Player extends Entity {
     }
 
     public void update() {
-
-        // TODO: FIGURE OUT ENTERPRESSED HERE OR NOT!
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPressed) {
             if (gp.getGameState() == GameState.PLAY) {
                 // player image changes every 12 frames
