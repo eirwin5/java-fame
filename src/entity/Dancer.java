@@ -100,6 +100,6 @@ public class Dancer extends Entity {
             }
         };
 
-        g2.drawImage(image, screenX, screenY, gp.tileSize * 2, gp.tileSize * 2, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize * 3, gp.tileSize * 3, null);
     }
 }
