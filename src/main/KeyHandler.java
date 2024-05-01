@@ -98,7 +98,7 @@ public class KeyHandler implements KeyListener {
                     }
                 }
             }
-            case GAME_OVER -> {
+            case GAME_OVER, WIN -> {
                 switch (code) {
                     case KeyEvent.VK_W, KeyEvent.VK_UP -> {
                         if (gp.ui.commandNum > 0) {
