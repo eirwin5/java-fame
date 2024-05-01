@@ -52,7 +52,8 @@ public class GamePanel extends JPanel implements Runnable {
     // Mini game
     public HitBoxManager hitBoxM;
     public Dancer dancer;
-    public Arrows[] shapes = new Arrows[100];
+    int numArrows = 50;
+    public Arrows[] shapes = new Arrows[numArrows];
     public long timeMiniGameStarted = 0;
     public int arrowsCollected = 0;
     public int arrowsMissed = 0;
@@ -79,7 +80,7 @@ public class GamePanel extends JPanel implements Runnable {
         arrowsMissed = 0;
         timeMiniGameStarted = 0;
         shapes = null;
-        shapes = new Arrows[100];
+        shapes = new Arrows[numArrows];
 
         ui.playtime = 0;
         treasureHunt = false;
@@ -98,8 +99,9 @@ public class GamePanel extends JPanel implements Runnable {
         hitBoxM = new HitBoxManager(this);
         dancer = new Dancer(this, keyH);
 
-        for (int i = 0; i < 100; i++) {
-            shapes[i] = new Arrows(keyH, this, hitBoxM);
+        int j = 300;
+        for (int i = 0; i < numArrows; i++) {
+            shapes[i] = new Arrows(keyH, this, hitBoxM, j += 4000);
         }
     }
 
@@ -164,7 +166,7 @@ public class GamePanel extends JPanel implements Runnable {
                 setGameState(GameState.GAME_OVER);
             }
 
-            if (arrowsCollected > 5) {
+            if (arrowsCollected > 30) {
                 setGameState(GameState.WIN);
             }
         }

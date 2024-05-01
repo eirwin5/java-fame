@@ -23,7 +23,7 @@ public class Arrows {
     BufferedImage img;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
 
-    public Arrows(KeyHandler keyH_in, GamePanel gp_in, HitBoxManager hitBoxManager_in) {
+    public Arrows(KeyHandler keyH_in, GamePanel gp_in, HitBoxManager hitBoxManager_in, int fallTime) {
         keyH = keyH_in;
         gp = gp_in;
         hitBoxManager = hitBoxManager_in;
@@ -53,9 +53,11 @@ public class Arrows {
             e.printStackTrace();
         }
 
-        Random rand = new Random();
-        speed = rand.nextInt((7 - 5) + 1) + 5;
-        time = rand.nextInt((100000 - 100) + 1) + 100;
+        // Random rand = new Random();
+        // speed = rand.nextInt((6 - 4) + 1) + 4;
+        // time = rand.nextInt((300000 - 300) + 1) + 300;
+        time = fallTime;
+        speed = 4;
     }
 
     private Direction getRandomDirection() {
