@@ -1,27 +1,56 @@
 package main;
 
-import object.ObjectPomPom;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.text.DecimalFormat;
+
+import javax.imageio.ImageIO;
 
 public class UI {
     GamePanel gp;
     Font arial_80;
     Font arial_40;
     Graphics2D g2;
-    BufferedImage keyImage;
+
+    BufferedImage pompomImage;
+    BufferedImage pompomGrayImage;
+    BufferedImage bowImage;
+    BufferedImage bowGrayImage;
+    BufferedImage uniformImage;
+    BufferedImage uniformGrayImage;
+    BufferedImage megaphoneImage;
+    BufferedImage megaphoneGrayImage;
+    BufferedImage heartImage;
+    BufferedImage heartBlankImage;
+
     public String currentDialogue;
     public int commandNum = 0;
-    // double playtime = 0;
-    // DecimalFormat format = new DecimalFormat("#0.00");
+    double playtime = 0;
+    DecimalFormat format = new DecimalFormat("#0.00");
 
     public UI(GamePanel gp) {
         this.gp = gp;
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80 = new Font("Arial", Font.PLAIN, 80);
-        ObjectPomPom key = new ObjectPomPom();
-        keyImage = key.image;
+        setupImages();
+    }
+
+    private void setupImages() {
+        try {
+            pompomImage = ImageIO.read(new File("res/object/pompom.png"));
+            pompomGrayImage = ImageIO.read(new File("res/object/pompom_gray.png"));
+            bowImage = ImageIO.read(new File("res/object/bow.png"));
+            bowGrayImage = ImageIO.read(new File("res/object/bow_gray.png"));
+            uniformImage = ImageIO.read(new File("res/object/uniform.png"));
+            uniformGrayImage = ImageIO.read(new File("res/object/uniform_gray.png"));
+            megaphoneImage = ImageIO.read(new File("res/object/megaphone.png"));
+            megaphoneGrayImage = ImageIO.read(new File("res/object/megaphone_gray.png"));
+            heartBlankImage = ImageIO.read(new File("res/object/heart_blank.png"));
+            heartImage = ImageIO.read(new File("res/object/heart_full.png"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void draw(Graphics2D g2) {
@@ -35,7 +64,9 @@ public class UI {
                 gp.stopMusic();
                 break;
             case PLAY:
-                drawPlayScreen();
+                if (gp.treasureHunt) {
+                    drawPlayScreen();
+                }
                 // gp.music.play();
                 break;
             case DIALOGUE:
@@ -93,15 +124,45 @@ public class UI {
         g2.setColor(Color.white);
         g2.drawString(STR."Score: \{gp.arrowsCollected}", gp.tileSize / 2, 65);
 
-        if (gp.arrowsMissed > 0) {
-            g2.drawImage(keyImage, gp.screenWidth - 16 - gp.tileSize, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
+        if (gp.arrowsMissed == 0) {
+            g2.drawImage(heartImage, gp.screenWidth - 16 - gp.tileSize, gp.tileSize / 2, gp.tileSize, gp.tileSize,
+                    null);
+            g2.drawImage(heartImage, gp.screenWidth - 16 - (gp.tileSize * 2), gp.tileSize / 2, gp.tileSize,
+                    gp.tileSize,
+                    null);
+            g2.drawImage(heartImage, gp.screenWidth - 16 - (gp.tileSize * 3), gp.tileSize / 2, gp.tileSize,
+                    gp.tileSize,
+                    null);
+
         }
-        if (gp.arrowsMissed > 1) {
-            g2.drawImage(keyImage, gp.screenWidth - 16 - (gp.tileSize * 2), gp.tileSize / 2, gp.tileSize, gp.tileSize,
+        if (gp.arrowsMissed == 1) {
+            g2.drawImage(heartBlankImage, gp.screenWidth - 16 - gp.tileSize, gp.tileSize / 2, gp.tileSize, gp.tileSize,
+                    null);
+            g2.drawImage(heartImage, gp.screenWidth - 16 - (gp.tileSize * 2), gp.tileSize / 2, gp.tileSize,
+                    gp.tileSize,
+                    null);
+            g2.drawImage(heartImage, gp.screenWidth - 16 - (gp.tileSize * 3), gp.tileSize / 2, gp.tileSize,
+                    gp.tileSize,
                     null);
         }
-        if (gp.arrowsMissed > 2) {
-            g2.drawImage(keyImage, gp.screenWidth - 16 - (gp.tileSize * 3), gp.tileSize / 2, gp.tileSize, gp.tileSize,
+        if (gp.arrowsMissed == 2) {
+            g2.drawImage(heartBlankImage, gp.screenWidth - 16 - gp.tileSize, gp.tileSize / 2, gp.tileSize, gp.tileSize,
+                    null);
+            g2.drawImage(heartBlankImage, gp.screenWidth - 16 - (gp.tileSize * 2), gp.tileSize / 2, gp.tileSize,
+                    gp.tileSize,
+                    null);
+            g2.drawImage(heartImage, gp.screenWidth - 16 - (gp.tileSize * 3), gp.tileSize / 2, gp.tileSize,
+                    gp.tileSize,
+                    null);
+        }
+        if (gp.arrowsMissed == 3) {
+            g2.drawImage(heartBlankImage, gp.screenWidth - 16 - gp.tileSize, gp.tileSize / 2, gp.tileSize, gp.tileSize,
+                    null);
+            g2.drawImage(heartBlankImage, gp.screenWidth - 16 - (gp.tileSize * 2), gp.tileSize / 2, gp.tileSize,
+                    gp.tileSize,
+                    null);
+            g2.drawImage(heartBlankImage, gp.screenWidth - 16 - (gp.tileSize * 3), gp.tileSize / 2, gp.tileSize,
+                    gp.tileSize,
                     null);
         }
     }
@@ -129,14 +190,45 @@ public class UI {
 
     public void drawPlayScreen() {
         g2.setFont(arial_40);
+
         g2.setColor(Color.white);
-        // g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize,
-        // gp.tileSize, null);
-        // g2.drawString(STR."x \{gp.player.has}", 74, 65);
-        // if (gp.gameState != GameState.PAUSE) {
-        // playtime += (double) 1 / 60;
-        // }
-        // g2.drawString(STR."Time: \{format.format(playtime)}", gp.tileSize * 11, 65);
+        int gap = 60;
+        int x = gp.screenWidth - gap;
+        int y = gp.tileSize;
+
+        int outlineX = x - 4;
+        int outlineY = 35;
+        int outlineWidth = 55;
+        int outlineHeight = gp.tileSize * 4 + 55;
+        int arc = 30;
+
+        g2.fillRoundRect(outlineX, outlineY, outlineWidth, outlineHeight, arc, arc);
+        g2.setColor(Color.black);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(outlineX, outlineY, outlineWidth, outlineHeight, arc, arc);
+
+        g2.drawImage(gp.player.hasPompom ? pompomImage : pompomGrayImage, x, y, gp.tileSize,
+                gp.tileSize, null);
+        y += gap;
+
+        g2.drawImage(gp.player.hasUniform ? uniformImage : uniformGrayImage, x, y, gp.tileSize,
+                gp.tileSize, null);
+        y += gap + 5;
+
+        g2.drawImage(gp.player.hasBow ? bowImage : bowGrayImage, x, y, gp.tileSize,
+                gp.tileSize, null);
+        y += gap - 5;
+
+        g2.drawImage(gp.player.hasMegaphone ? megaphoneImage : megaphoneGrayImage, x, y, gp.tileSize,
+                gp.tileSize, null);
+
+        if (gp.gameState != GameState.PAUSE) {
+            playtime += (double) 1 / 60;
+            if (playtime > 120) {
+                gp.gameState = GameState.GAME_OVER;
+            }
+        }
+        g2.drawString(STR."Time: \{format.format(playtime)}", gp.tileSize / 2, 65);
 
     }
 

@@ -13,5 +13,6 @@ public class ObjectUniform extends SuperObject {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        collision = true;
     }
 }
