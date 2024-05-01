@@ -72,9 +72,6 @@ public class UI {
             case DIALOGUE:
                 drawDialogueScreen();
                 break;
-            case DIALOGUE_OPTIONS:
-                drawOptions();
-                break;
             case TITLE:
                 drawTitleScreen();
                 break;
@@ -261,6 +258,8 @@ public class UI {
             playtime += (double) 1 / 60;
             if (playtime > 120) {
                 gp.gameState = GameState.GAME_OVER;
+                gp.stopMusic();
+                gp.playSoundEffect(SoundType.GAME_OVER.ordinal());
             }
         }
         g2.drawString(STR."Time: \{format.format(playtime)}", gp.tileSize / 2, 65);
