@@ -3,14 +3,25 @@ package main;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 
 import javax.imageio.ImageIO;
 
 public class UI {
     GamePanel gp;
-    Font arial_80;
-    Font arial_40;
+    Font superCerealFont;
+    Font poppinsFont;
+
+    Color lightPink;
+    Color lightBlue;
+    Color transparentLightBlue;
+    Color purple;
+    Color lightPurple;
+    Color darkPink;
+    Color teal;
+
     Graphics2D g2;
 
     BufferedImage pompomImage;
@@ -31,9 +42,35 @@ public class UI {
 
     public UI(GamePanel gp) {
         this.gp = gp;
-        arial_40 = new Font("Arial", Font.PLAIN, 40);
-        arial_80 = new Font("Arial", Font.PLAIN, 80);
         setupImages();
+        setupFonts();
+        setupColors();
+    }
+
+    private void setupColors() {
+        int opacity = 174;
+        transparentLightBlue = new Color(174, 234, 241, opacity);
+        lightBlue = new Color(174, 234, 241);
+        lightPink = new Color(255, 176, 212);
+        lightPurple = new Color(151, 146, 213);
+        darkPink = new Color(235, 95, 160);
+        purple = new Color(118, 112, 192);
+        teal = new Color(0, 128, 143);
+
+        // transparentLightGreen = new Color(141, 211, 136, opacity);
+        // yellow = new Color(255, 222, 135);
+        // green = new Color(93, 162, 89);
+    }
+
+    private void setupFonts() {
+        try {
+            InputStream is = new FileInputStream("res/font/Poppins.ttf");
+            poppinsFont = Font.createFont(Font.TRUETYPE_FONT, is);
+            is = new FileInputStream("res/font/SuperCereal.ttf");
+            superCerealFont = Font.createFont(Font.TRUETYPE_FONT, is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setupImages() {
@@ -55,7 +92,8 @@ public class UI {
 
     public void draw(Graphics2D g2) {
         this.g2 = g2;
-        g2.setFont(arial_80);
+        g2.setFont(poppinsFont);
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80F));
         g2.setColor(Color.white);
 
         switch (gp.getGameState()) {
@@ -66,7 +104,6 @@ public class UI {
                 if (gp.treasureHunt) {
                     drawPlayScreen();
                 }
-                // gp.music.play();
                 break;
             case DIALOGUE:
                 drawDialogueScreen();
@@ -87,7 +124,12 @@ public class UI {
     }
 
     public void drawWinScreen() {
+        g2.setColor(lightBlue);
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
         // title
+        g2.setColor(teal);
+        g2.setFont(superCerealFont);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
         String text = "Win!";
         int x = getXForCenterText(text);
@@ -100,26 +142,36 @@ public class UI {
         g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
 
         // menu
+        g2.setColor(commandNum == 0 ? darkPink : teal);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
         text = "Try again";
         x = getXForCenterText(text);
         y += gp.tileSize * 4;
         g2.drawString(text, x, y);
         if (commandNum == 0) {
+            g2.setColor(darkPink);
             g2.drawString(">", x - gp.tileSize, y);
         }
 
         text = "Quit";
         x = getXForCenterText(text);
         y += gp.tileSize;
+        g2.setColor(commandNum == 1 ? darkPink : teal);
         g2.drawString(text, x, y);
         if (commandNum == 1) {
+            g2.setColor(darkPink);
             g2.drawString(">", x - gp.tileSize, y);
         }
     }
 
     public void drawGameOverScreen() {
         // title
+        g2.setFont(superCerealFont);
+
+        g2.setColor(lightPink);
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        g2.setColor(darkPink);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
         String text = "Game Over";
         int x = getXForCenterText(text);
@@ -132,20 +184,24 @@ public class UI {
         g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
 
         // menu
+        g2.setColor(commandNum == 0 ? teal : darkPink);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
         text = "Play again";
         x = getXForCenterText(text);
         y += gp.tileSize * 4;
         g2.drawString(text, x, y);
         if (commandNum == 0) {
+            g2.setColor(teal);
             g2.drawString(">", x - gp.tileSize, y);
         }
 
         text = "Quit";
         x = getXForCenterText(text);
         y += gp.tileSize;
+        g2.setColor(commandNum == 1 ? teal : darkPink);
         g2.drawString(text, x, y);
         if (commandNum == 1) {
+            g2.setColor(teal);
             g2.drawString(">", x - gp.tileSize, y);
         }
     }
@@ -220,9 +276,10 @@ public class UI {
     }
 
     public void drawPlayScreen() {
-        g2.setFont(arial_40);
+        g2.setFont(poppinsFont);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
 
-        g2.setColor(Color.white);
+        g2.setColor(new Color(151, 146, 213, 174));
         int gap = 60;
         int x = gp.screenWidth - gap;
         int y = gp.tileSize;
@@ -234,7 +291,7 @@ public class UI {
         int arc = 30;
 
         g2.fillRoundRect(outlineX, outlineY, outlineWidth, outlineHeight, arc, arc);
-        g2.setColor(Color.black);
+        g2.setColor(purple);
         g2.setStroke(new BasicStroke(5));
         g2.drawRoundRect(outlineX, outlineY, outlineWidth, outlineHeight, arc, arc);
 
@@ -253,26 +310,45 @@ public class UI {
         g2.drawImage(gp.player.hasMegaphone ? megaphoneImage : megaphoneGrayImage, x, y, gp.tileSize,
                 gp.tileSize, null);
 
+        drawTimer();
+    }
+
+    public void drawTimer() {
+        int outlineX = 20;
+        int outlineY = 20;
+        int outlineWidth = 280;
+        int outlineHeight = 60;
+        int arc = 30;
+
+        g2.setColor(transparentLightBlue);
+        g2.fillRoundRect(outlineX, outlineY, outlineWidth, outlineHeight, arc, arc);
+        g2.setColor(teal);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(outlineX, outlineY, outlineWidth, outlineHeight, arc, arc);
         if (gp.getGameState() != GameState.PAUSE) {
             playtime += (double) 1 / 60;
             if (playtime > 120) {
                 gp.setGameState(GameState.GAME_OVER);
             }
         }
-        g2.drawString(STR."Time: \{format.format(playtime)}", gp.tileSize / 2, 65);
-
+        g2.setColor(teal);
+        g2.drawString(STR."Time: \{format.format(playtime)}", outlineX + 8, 65);
     }
 
     public void drawTitleScreen() {
+        g2.setColor(new Color(255, 238, 193));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
         // title
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
-        String text = "Cheer rush game";
+        g2.setFont(superCerealFont);
+        g2.setColor(lightPink);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 78F));
+        String text = "Cheer Rush Game";
         int x = getXForCenterText(text);
         int y = gp.tileSize * 3;
 
         // shadow
-        g2.setColor(Color.gray);
+        g2.setColor(darkPink);
         g2.drawString(text, x + 5, y + 5);
         g2.setColor(Color.PINK);
         g2.drawString(text, x, y);
@@ -284,19 +360,23 @@ public class UI {
 
         // menu
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+        g2.setColor(commandNum == 0 ? purple : lightPurple);
         text = "New Game";
         x = getXForCenterText(text);
         y += gp.tileSize * 4;
         g2.drawString(text, x, y);
         if (commandNum == 0) {
+            g2.setColor(purple);
             g2.drawString(">", x - gp.tileSize, y);
         }
 
         text = "Quit";
         x = getXForCenterText(text);
         y += gp.tileSize;
+        g2.setColor(commandNum == 1 ? purple : lightPurple);
         g2.drawString(text, x, y);
         if (commandNum == 1) {
+            g2.setColor(purple);
             g2.drawString(">", x - gp.tileSize, y);
         }
     }
@@ -333,6 +413,7 @@ public class UI {
     }
 
     public void drawPauseScreen() {
+
         String text = "PAUSED";
         int x = getXForCenterText(text), y = gp.screenHeight / 2;
         g2.drawString(text, x, y);

@@ -41,7 +41,7 @@ public class KeyHandler implements KeyListener {
             }
             case PAUSE -> {
                 if (code == KeyEvent.VK_P) {
-                    gp.setGameState(GameState.PAUSE);
+                    gp.setGameState(GameState.PLAY);
                 }
             }
             case DIALOGUE -> {
