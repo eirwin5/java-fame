@@ -36,28 +36,23 @@ public class KeyHandler implements KeyListener {
                     }
                     case KeyEvent.VK_P -> {
                         gp.gameState = GameState.PAUSE;
+                        gp.stopMusic();
                     }
                 }
             }
             case PAUSE -> {
-                if (code == KeyEvent.VK_P)
+                if (code == KeyEvent.VK_P) {
                     gp.gameState = GameState.PLAY;
+                    gp.playMusic(SoundType.MUSIC.ordinal());
+                }
             }
             case DIALOGUE -> {
                 if (code == KeyEvent.VK_ENTER) {
                     enterPressed = true;
                 } else if (code == KeyEvent.VK_X) {
                     gp.gameState = GameState.PLAY;
+                    gp.playMusic(SoundType.MUSIC.ordinal());
                 }
-            }
-            case DIALOGUE_OPTIONS -> {
-                if (code == KeyEvent.VK_A) {
-                    gp.gameState = GameState.PLAY;
-                } else if (code == KeyEvent.VK_B) {
-                    gp.gameState = GameState.MINI_GAME;
-                    gp.timeMiniGameStarted = System.currentTimeMillis();
-                }
-                gp.optionFlag = false;
             }
             case TITLE -> {
                 switch (code) {
@@ -74,6 +69,7 @@ public class KeyHandler implements KeyListener {
                     case KeyEvent.VK_ENTER -> {
                         if (gp.ui.commandNum == 0) {
                             gp.gameState = GameState.PLAY;
+                            gp.playMusic(SoundType.MUSIC.ordinal());
                         } else if (gp.ui.commandNum == 1)
                             System.exit(0);
                     }
@@ -83,6 +79,7 @@ public class KeyHandler implements KeyListener {
                 switch (code) {
                     case KeyEvent.VK_X -> {
                         gp.gameState = GameState.PLAY;
+                        gp.playMusic(SoundType.MUSIC.ordinal());
                     }
                     case KeyEvent.VK_W, KeyEvent.VK_UP -> {
                         upPressed = true;

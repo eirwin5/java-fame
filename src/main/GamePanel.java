@@ -79,14 +79,12 @@ public class GamePanel extends JPanel implements Runnable {
         shapes = new Arrows[100];
         setupMiniGame();
         gameState = GameState.TITLE;
-        playMusic(SoundType.MUSIC.ordinal());
     }
 
     public void setupGame() {
         assetSetter.setObject();
         assetSetter.setNpc();
         gameState = GameState.TITLE;
-        playMusic(SoundType.MUSIC.ordinal());
     }
 
     public void setupMiniGame() {
@@ -157,10 +155,14 @@ public class GamePanel extends JPanel implements Runnable {
 
             if (arrowsMissed > 3) {
                 gameState = GameState.GAME_OVER;
+                stopMusic();
+                playSoundEffect(SoundType.GAME_OVER.ordinal());
             }
 
             if (arrowsCollected > 5) {
                 gameState = GameState.WIN;
+                stopMusic();
+                playSoundEffect(SoundType.FANFARE.ordinal());
             }
         }
 
@@ -226,9 +228,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void playMusic(int i) {
         music.setFile(i);
-        // music.play();
-        // music.stop();
-        // music.loop();
+        music.play();
+        music.stop();
+        music.loop();
     }
 
     public void stopMusic() {
