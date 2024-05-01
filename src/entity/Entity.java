@@ -39,6 +39,8 @@ public class Entity {
     } // used by npc
 
     public void newDialogue() {
+        dialogueIndex++;
+        gp.playSpeakSound();
     }
 
     public void setNewDialogue() {

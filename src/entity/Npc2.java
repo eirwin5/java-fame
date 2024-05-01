@@ -78,8 +78,4 @@ public class Npc2 extends Entity {
         }
         super.speak();
     }
-
-    public void newDialogue() {
-        dialogueIndex++;
-    }
 }
