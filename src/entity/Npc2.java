@@ -56,20 +56,30 @@ public class Npc2 extends Entity {
     }
 
     public void setDialogue() {
-        dialogues[0] = "This text is different!";
-        dialogues[1] = "Test";
-        dialogues[2] = "Test again";
-        dialogues[3] = "One more time";
+        dialogues[0] = "I'm sorry I'm too busy to talk right now.";
+    }
+
+    public void setNewDialogue() {
+        dialogues[0] = "Oh my gosh that's exactly what I've\nbeen looking for! Thank you so\nmuch for getting this equipment\nto me!";
+        dialogues[1] = "Are you new around here? I could\nreally use someone like you on my team.";
+        dialogues[2] = "Are you free to tryout right now?\n It's a just quick dance routine.";
+        dialogues[3] = "Great! The rules are simple:\nYou have to get 30 moves correct.\nIf you miss a move, you lose a point.\nLose more than 3 points and you're cut.";
     }
 
     public void speak() {
+        if (dialogues[dialogueIndex] == null) {
+            if (gp.tryouts) {
+                gp.gameState = GameState.MINI_GAME;
+                gp.timeMiniGameStarted = System.currentTimeMillis();
+            } else {
+                gp.gameState = GameState.PLAY; // automatically exit the dialogue
+                dialogueIndex = 0;
+            }
+        }
         super.speak();
     }
 
     public void newDialogue() {
-        if (dialogueIndex == 2) {
-            gp.gameState = GameState.DIALOGUE_OPTIONS;
-        }
         dialogueIndex++;
     }
 }

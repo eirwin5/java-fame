@@ -105,6 +105,11 @@ public class Player extends Entity {
                     case RIGHT -> worldX += speed;
                 }
             }
+
+            if (hasBow && hasMegaphone && hasPompom && hasUniform) {
+                gp.tryouts = true;
+                gp.npc[1].setNewDialogue();
+            }
         }
     }
 
@@ -180,6 +185,16 @@ public class Player extends Entity {
                 gp.keyH.enterPressed = false;
             } else {
                 gp.gameState = GameState.DIALOGUE;
+                if (i == 1) { // if coach
+                    if (hasBow && hasMegaphone && hasPompom && hasUniform) { // if has everything
+                        hasBow = false;
+                        hasMegaphone = false;
+                        hasPompom = false;
+                        hasUniform = false;
+                        gp.tryouts = true;
+                        gp.treasureHunt = false;
+                    }
+                }
                 gp.npc[i].speak();
             }
         }

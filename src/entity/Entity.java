@@ -1,7 +1,6 @@
 package entity;
 
 import main.GamePanel;
-import main.GameState;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,7 +16,7 @@ public class Entity {
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
     public int actionLockCounter = 0;
-    String[] dialogues = new String[5];
+    String[] dialogues = new String[10];
     int dialogueIndex = 0;
 
     public Entity(GamePanel gp) {
@@ -28,11 +27,6 @@ public class Entity {
     } // used by npc
 
     public void speak() {
-        if (dialogues[dialogueIndex] == null) {
-            gp.gameState = GameState.PLAY; // automatically exit the dialogue
-            dialogueIndex = 0;
-        }
-
         gp.ui.currentDialogue = dialogues[dialogueIndex];
 
         switch (gp.player.direction) {
@@ -45,6 +39,9 @@ public class Entity {
     } // used by npc
 
     public void newDialogue() {
+    }
+
+    public void setNewDialogue() {
     }
 
     public void update() {

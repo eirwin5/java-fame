@@ -1,6 +1,7 @@
 package entity;
 
 import main.GamePanel;
+import main.GameState;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -55,13 +56,30 @@ public class Npc1 extends Entity {
     }
 
     public void setDialogue() {
-        dialogues[0] = "Hello!";
-        dialogues[1] = "Would you like to join the cheer team?\nGo to the school and talk to the coach!";
-        dialogues[2] = "They'll have you try out with a\nkeyboard game. Pick your favorite\nsong and start practicing.";
-        dialogues[3] = "I'll be there in a little bit. I hope\nto see you there!";
+        dialogues[0] = "Hello! You must be the new girl!\nI'm Tasha, nice to meet you.";
+        dialogues[1] = "Oh you want to join the cheer team?\nThat's great. Just go to--";
+        dialogues[2] = "Oh no! I just realized I was supposed\nto bring Coach Tammy the equipment\nfor tryouts! I lost it all in the\nwoods nearby!";
+        dialogues[3] = "I'm so busy over here. Would\nyou be able to go find them and bring\nthem to Coach? It would\nprobably give you a leg up in tryouts.";
+        dialogues[4] = "Thank you so much. She's at the school.\n After you have everything, follow\nthe tiled path to find her. ";
+        dialogues[5] = "Please hurry! You have 2 minutes\nto get them to her.";
+    }
+
+    public void setNewDialogue() {
+        dialogues[0] = "Did you get them to her yet?\nIt's very important!";
+        dialogues[1] = null;
+        dialogues[2] = null;
+        dialogues[3] = null;
+        dialogues[4] = null;
+        dialogues[5] = null;
     }
 
     public void speak() {
+        if (dialogues[dialogueIndex] == null) {
+            gp.gameState = GameState.PLAY; // automatically exit the dialogue
+            gp.treasureHunt = true;
+            setNewDialogue();
+            dialogueIndex = 0;
+        }
         super.speak();
     }
 

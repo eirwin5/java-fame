@@ -45,6 +45,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     // Game state
     public GameState gameState;
+    public boolean treasureHunt = false;
+    public boolean tryouts = false;
     public boolean optionFlag = false;
 
     // Mini game
@@ -142,7 +144,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             if (arrowsCollected > 5) {
-                gameState = GameState.PLAY;
+                gameState = GameState.WIN;
             }
         }
 
