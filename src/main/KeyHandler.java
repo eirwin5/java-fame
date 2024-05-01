@@ -73,9 +73,9 @@ public class KeyHandler implements KeyListener {
             }
             case MINI_GAME -> {
                 switch (code) {
-                    case KeyEvent.VK_X -> {
-                        gp.setGameState(GameState.PLAY);
-                    }
+                    // case KeyEvent.VK_X -> {
+                    // gp.setGameState(GameState.PLAY);
+                    // }
                     case KeyEvent.VK_W, KeyEvent.VK_UP -> {
                         upPressed = true;
                     }
