@@ -18,7 +18,6 @@ public class Dancer extends Entity {
         direction = Direction.DOWN;
         speed = 1;
 
-        // TODO: figure these out
         screenX = 100;
         screenY = 288 - gp.tileSize;
         keyH = keyH_in;
