@@ -44,7 +44,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Entity[] npc = new Entity[2];
 
     // Game state
-    public GameState gameState;
+    private GameState gameState;
     public boolean treasureHunt = false;
     public boolean tryouts = false;
     public boolean optionFlag = false;
@@ -226,19 +226,59 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose();
     }
 
-    public void playMusic(int i) {
+    private void playMusic(int i) {
         music.setFile(i);
         music.play();
         music.stop();
         music.loop();
     }
 
-    public void stopMusic() {
+    private void stopMusic() {
         music.stop();
     }
 
     public void playSoundEffect(int i) {
         soundEffect.setFile(i);
         soundEffect.play();
+    }
+
+    public void setGameState(GameState gameState_in) {
+        switch (gameState_in) {
+            case PLAY:
+                gameState = GameState.PLAY;
+                playMusic(SoundType.MUSIC.ordinal());
+                break;
+            case TITLE:
+                gameState = GameState.TITLE;
+                stopMusic();
+                break;
+            case MINI_GAME:
+                gameState = GameState.MINI_GAME;
+                stopMusic();
+                playMusic(SoundType.MINI_GAME_MUSIC.ordinal());
+                break;
+            case WIN:
+                gameState = GameState.WIN;
+                stopMusic();
+                playSoundEffect(SoundType.FANFARE.ordinal());
+                break;
+            case GAME_OVER:
+                gameState = GameState.GAME_OVER;
+                stopMusic();
+                playSoundEffect(SoundType.GAME_OVER.ordinal());
+                break;
+            case DIALOGUE:
+                gameState = GameState.DIALOGUE;
+                stopMusic();
+                playSoundEffect(SoundType.SPEAK.ordinal());
+                break;
+            case PAUSE:
+                gameState = GameState.PAUSE;
+                stopMusic();
+        }
+    }
+
+    public GameState getGameState() {
+        return this.gameState;
     }
 }

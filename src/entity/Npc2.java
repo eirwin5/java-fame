@@ -2,7 +2,6 @@ package entity;
 
 import main.GamePanel;
 import main.GameState;
-import main.SoundType;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -70,12 +69,10 @@ public class Npc2 extends Entity {
     public void speak() {
         if (dialogues[dialogueIndex] == null) {
             if (gp.tryouts) {
-                gp.gameState = GameState.MINI_GAME;
-                gp.stopMusic();
-                gp.playMusic(SoundType.MINI_GAME_MUSIC.ordinal());
+                gp.setGameState(GameState.MINI_GAME);
                 gp.timeMiniGameStarted = System.currentTimeMillis();
             } else {
-                gp.gameState = GameState.PLAY; // automatically exit the dialogue
+                gp.setGameState(GameState.PLAY);
                 dialogueIndex = 0;
             }
         }

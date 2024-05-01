@@ -75,7 +75,7 @@ public class Npc1 extends Entity {
 
     public void speak() {
         if (dialogues[dialogueIndex] == null) {
-            gp.gameState = GameState.PLAY; // automatically exit the dialogue
+            gp.setGameState(GameState.PLAY);
             gp.treasureHunt = true;
             setNewDialogue();
             dialogueIndex = 0;

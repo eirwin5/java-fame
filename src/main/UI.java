@@ -58,10 +58,9 @@ public class UI {
         g2.setFont(arial_80);
         g2.setColor(Color.white);
 
-        switch (gp.gameState) {
+        switch (gp.getGameState()) {
             case PAUSE:
                 drawPauseScreen();
-                gp.stopMusic();
                 break;
             case PLAY:
                 if (gp.treasureHunt) {
@@ -254,12 +253,10 @@ public class UI {
         g2.drawImage(gp.player.hasMegaphone ? megaphoneImage : megaphoneGrayImage, x, y, gp.tileSize,
                 gp.tileSize, null);
 
-        if (gp.gameState != GameState.PAUSE) {
+        if (gp.getGameState() != GameState.PAUSE) {
             playtime += (double) 1 / 60;
             if (playtime > 120) {
-                gp.gameState = GameState.GAME_OVER;
-                gp.stopMusic();
-                gp.playSoundEffect(SoundType.GAME_OVER.ordinal());
+                gp.setGameState(GameState.GAME_OVER);
             }
         }
         g2.drawString(STR."Time: \{format.format(playtime)}", gp.tileSize / 2, 65);

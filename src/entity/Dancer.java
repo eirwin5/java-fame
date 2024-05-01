@@ -62,7 +62,7 @@ public class Dancer extends Entity {
             }
         }
 
-        if (gp.gameState == GameState.PLAY && !collisionOn) {
+        if (gp.getGameState() == GameState.PLAY && !collisionOn) {
             switch (direction) {
                 case UP -> worldY -= speed;
                 case DOWN -> worldY += speed;

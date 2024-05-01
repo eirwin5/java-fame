@@ -19,7 +19,7 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        switch (gp.gameState) {
+        switch (gp.getGameState()) {
             case PLAY -> {
                 switch (code) {
                     case KeyEvent.VK_W, KeyEvent.VK_UP -> {
@@ -35,23 +35,20 @@ public class KeyHandler implements KeyListener {
                         rightPressed = true;
                     }
                     case KeyEvent.VK_P -> {
-                        gp.gameState = GameState.PAUSE;
-                        gp.stopMusic();
+                        gp.setGameState(GameState.PAUSE);
                     }
                 }
             }
             case PAUSE -> {
                 if (code == KeyEvent.VK_P) {
-                    gp.gameState = GameState.PLAY;
-                    gp.playMusic(SoundType.MUSIC.ordinal());
+                    gp.setGameState(GameState.PAUSE);
                 }
             }
             case DIALOGUE -> {
                 if (code == KeyEvent.VK_ENTER) {
                     enterPressed = true;
                 } else if (code == KeyEvent.VK_X) {
-                    gp.gameState = GameState.PLAY;
-                    gp.playMusic(SoundType.MUSIC.ordinal());
+                    gp.setGameState(GameState.PLAY);
                 }
             }
             case TITLE -> {
@@ -68,8 +65,7 @@ public class KeyHandler implements KeyListener {
                     }
                     case KeyEvent.VK_ENTER -> {
                         if (gp.ui.commandNum == 0) {
-                            gp.gameState = GameState.PLAY;
-                            gp.playMusic(SoundType.MUSIC.ordinal());
+                            gp.setGameState(GameState.PLAY);
                         } else if (gp.ui.commandNum == 1)
                             System.exit(0);
                     }
@@ -78,8 +74,7 @@ public class KeyHandler implements KeyListener {
             case MINI_GAME -> {
                 switch (code) {
                     case KeyEvent.VK_X -> {
-                        gp.gameState = GameState.PLAY;
-                        gp.playMusic(SoundType.MUSIC.ordinal());
+                        gp.setGameState(GameState.PLAY);
                     }
                     case KeyEvent.VK_W, KeyEvent.VK_UP -> {
                         upPressed = true;

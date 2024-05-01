@@ -62,7 +62,7 @@ public class Player extends Entity {
 
         // TODO: FIGURE OUT ENTERPRESSED HERE OR NOT!
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPressed) {
-            if (gp.gameState == GameState.PLAY) {
+            if (gp.getGameState() == GameState.PLAY) {
                 // player image changes every 12 frames
                 spriteCounter++;
                 if (spriteCounter > 12) {
@@ -99,7 +99,7 @@ public class Player extends Entity {
             int npcIndex = gp.collisionChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
 
-            if (gp.gameState == GameState.PLAY && !collisionOn) {
+            if (gp.getGameState() == GameState.PLAY && !collisionOn) {
                 switch (direction) {
                     case UP -> worldY -= speed;
                     case DOWN -> worldY += speed;
@@ -181,12 +181,12 @@ public class Player extends Entity {
 
     public void interactNPC(int i) {
         if (i != 999) {
-            if (gp.gameState == GameState.DIALOGUE && gp.keyH.enterPressed) {
+            if (gp.getGameState() == GameState.DIALOGUE && gp.keyH.enterPressed) {
                 gp.npc[i].newDialogue();
                 gp.npc[i].speak();
                 gp.keyH.enterPressed = false;
             } else {
-                gp.gameState = GameState.DIALOGUE;
+                gp.setGameState(GameState.DIALOGUE);
                 if (i == 1) { // if coach
                     if (hasBow && hasMegaphone && hasPompom && hasUniform) { // if has everything
                         hasBow = false;
