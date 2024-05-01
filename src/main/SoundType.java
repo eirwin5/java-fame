@@ -1,11 +1,13 @@
 package main;
 
 public enum SoundType {
+    SPEAK1,
+    SPEAK2,
+    SPEAK3,
     MUSIC,
     MINI_GAME_MUSIC,
     COIN,
-    FANFARE,
+    TITLE,
     GAME_OVER,
-    SPEAK,
     MISSED,
 }

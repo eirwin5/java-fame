@@ -10,6 +10,7 @@ import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -47,7 +48,6 @@ public class GamePanel extends JPanel implements Runnable {
     private GameState gameState;
     public boolean treasureHunt = false;
     public boolean tryouts = false;
-    public boolean optionFlag = false;
 
     // Mini game
     public HitBoxManager hitBoxM;
@@ -64,27 +64,34 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyH);
         this.setFocusable(true);
         this.gameState = GameState.TITLE;
+        playMusic(SoundType.TITLE.ordinal());
     }
 
     public void resetGame() {
+        stopMusic();
         assetSetter.resetAssets();
+
+        player = null;
+        player = new Player(this, keyH);
+
         arrowsCollected = 0;
         arrowsCollected = 0;
         arrowsMissed = 0;
         timeMiniGameStarted = 0;
-        treasureHunt = false;
-        tryouts = false;
-        optionFlag = false;
         shapes = null;
         shapes = new Arrows[100];
+
+        ui.playtime = 0;
+        treasureHunt = false;
+        tryouts = false;
+
         setupMiniGame();
-        gameState = GameState.TITLE;
+        setGameState(GameState.TITLE);
     }
 
     public void setupGame() {
         assetSetter.setObject();
         assetSetter.setNpc();
-        gameState = GameState.TITLE;
     }
 
     public void setupMiniGame() {
@@ -154,15 +161,11 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             if (arrowsMissed > 3) {
-                gameState = GameState.GAME_OVER;
-                stopMusic();
-                playSoundEffect(SoundType.GAME_OVER.ordinal());
+                setGameState(GameState.GAME_OVER);
             }
 
             if (arrowsCollected > 5) {
-                gameState = GameState.WIN;
-                stopMusic();
-                playSoundEffect(SoundType.FANFARE.ordinal());
+                setGameState(GameState.WIN);
             }
         }
 
@@ -242,15 +245,37 @@ public class GamePanel extends JPanel implements Runnable {
         soundEffect.play();
     }
 
+    public void playSpeakSound() {
+        Random random = new Random();
+        int max = 3;
+        int min = 1;
+        int ranNum = random.nextInt((max - min) + 1) + min;
+
+        switch (ranNum) {
+            case 1:
+                playSoundEffect(SoundType.SPEAK1.ordinal());
+                break;
+            case 2:
+                playSoundEffect(SoundType.SPEAK2.ordinal());
+                break;
+            case 3:
+                playSoundEffect(SoundType.SPEAK3.ordinal());
+                break;
+        }
+    }
+
     public void setGameState(GameState gameState_in) {
         switch (gameState_in) {
             case PLAY:
                 gameState = GameState.PLAY;
+                stopMusic();
                 playMusic(SoundType.MUSIC.ordinal());
                 break;
             case TITLE:
                 gameState = GameState.TITLE;
+                playMusic(SoundType.TITLE.ordinal());
                 stopMusic();
+                playMusic(SoundType.TITLE.ordinal());
                 break;
             case MINI_GAME:
                 gameState = GameState.MINI_GAME;
@@ -260,17 +285,16 @@ public class GamePanel extends JPanel implements Runnable {
             case WIN:
                 gameState = GameState.WIN;
                 stopMusic();
-                playSoundEffect(SoundType.FANFARE.ordinal());
+                playMusic(SoundType.TITLE.ordinal());
                 break;
             case GAME_OVER:
                 gameState = GameState.GAME_OVER;
                 stopMusic();
-                playSoundEffect(SoundType.GAME_OVER.ordinal());
+                playMusic(SoundType.GAME_OVER.ordinal());
                 break;
             case DIALOGUE:
                 gameState = GameState.DIALOGUE;
                 stopMusic();
-                playSoundEffect(SoundType.SPEAK.ordinal());
                 break;
             case PAUSE:
                 gameState = GameState.PAUSE;

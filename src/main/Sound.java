@@ -10,12 +10,14 @@ public class Sound {
     File[] soundURL = new File[30];
 
     public Sound() {
-        soundURL[SoundType.MUSIC.ordinal()] = new File("res/sound/bgMusic.wav");
+        soundURL[SoundType.SPEAK1.ordinal()] = new File("res/sound/speak1.wav");
+        soundURL[SoundType.SPEAK2.ordinal()] = new File("res/sound/speak2.wav");
+        soundURL[SoundType.SPEAK3.ordinal()] = new File("res/sound/speak3.wav");
+        soundURL[SoundType.MUSIC.ordinal()] = new File("res/sound/bg.wav");
         soundURL[SoundType.MINI_GAME_MUSIC.ordinal()] = new File("res/sound/song.wav");
         soundURL[SoundType.COIN.ordinal()] = new File("res/sound/coin.wav");
-        soundURL[SoundType.FANFARE.ordinal()] = new File("res/sound/fanfare.wav");
+        soundURL[SoundType.TITLE.ordinal()] = new File("res/sound/title_song.wav");
         soundURL[SoundType.GAME_OVER.ordinal()] = new File("res/sound/gameover.wav");
-        soundURL[SoundType.SPEAK.ordinal()] = new File("res/sound/speak.wav");
         soundURL[SoundType.MISSED.ordinal()] = new File("res/sound/blocked.wav");
     }
 

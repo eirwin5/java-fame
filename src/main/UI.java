@@ -37,7 +37,7 @@ public class UI {
 
     public String currentDialogue;
     public int commandNum = 0;
-    double playtime = 0;
+    public double playtime = 0;
     DecimalFormat format = new DecimalFormat("#0.00");
 
     public UI(GamePanel gp) {
