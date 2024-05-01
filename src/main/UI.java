@@ -207,8 +207,9 @@ public class UI {
     }
 
     public void drawMiniGameScreen() {
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 36F));
-        g2.setColor(Color.white);
+        g2.setColor(new Color(155, 117, 17));
+        g2.setFont(superCerealFont);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
         g2.drawString(STR."Score: \{gp.arrowsCollected}", gp.tileSize / 2, 65);
 
         if (gp.arrowsMissed == 0) {
@@ -390,7 +391,8 @@ public class UI {
 
         drawSubwindow(x, y, width, height);
 
-        g2.setFont(new Font("SuperBoys", Font.PLAIN, 28));
+        g2.setFont(poppinsFont);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 24F));
         x += gp.tileSize;
         y += gp.tileSize;
 
