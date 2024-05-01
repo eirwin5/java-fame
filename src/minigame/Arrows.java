@@ -8,6 +8,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.KeyHandler;
+import main.SoundType;
 
 public class Arrows {
     public int screenX;
@@ -104,6 +105,7 @@ public class Arrows {
         if (this.screenY > gp.screenHeight) {
             this.screenY = -4 * gp.tileSize;
             gp.arrowsMissed++;
+            gp.playSoundEffect(SoundType.MISSED.ordinal());
         }
     }
 
