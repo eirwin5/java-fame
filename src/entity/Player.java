@@ -185,6 +185,9 @@ public class Player extends Entity {
                 gp.keyH.enterPressed = false;
             } else {
                 gp.setGameState(GameState.DIALOGUE);
+                if (i == 0 && gp.talkToTashaQueue) {
+                    gp.talkToTashaQueue = false;
+                }
                 if (i == 1) { // if coach
                     if (hasBow && hasMegaphone && hasPompom && hasUniform) { // if has everything
                         hasBow = false;

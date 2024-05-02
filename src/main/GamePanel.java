@@ -46,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // Game state
     private GameState gameState;
+    public boolean talkToTashaQueue = true;
     public boolean treasureHunt = false;
     public boolean tryouts = false;
 

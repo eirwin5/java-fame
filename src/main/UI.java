@@ -101,6 +101,9 @@ public class UI {
                 drawPauseScreen();
                 break;
             case PLAY:
+                if (gp.talkToTashaQueue) {
+                    drawTalkToTashaQueue();
+                }
                 if (gp.treasureHunt) {
                     drawPlayScreen();
                 }
@@ -121,6 +124,23 @@ public class UI {
                 drawWinScreen();
                 break;
         }
+    }
+
+    public void drawTalkToTashaQueue() {
+        g2.setFont(poppinsFont);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 36F));
+        int outlineX = getXForCenterText("Talk to Tasha");
+        int outlineY = 20;
+        int outlineWidth = 280;
+        int outlineHeight = 60;
+        int arc = 30;
+
+        g2.setColor(new Color(255, 176, 212, 173));
+        g2.fillRoundRect(outlineX, outlineY, outlineWidth, outlineHeight, arc, arc);
+        g2.setColor(new Color(177, 55, 112));
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(outlineX, outlineY, outlineWidth, outlineHeight, arc, arc);
+        g2.drawString("Talk to Tasha", outlineX + 16, outlineY + 42);
     }
 
     public void drawWinScreen() {
