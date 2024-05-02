@@ -28,7 +28,7 @@ public class Player extends Entity {
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
-        solidArea = new Rectangle(8, 16, 32, 32);
+        solidArea = new Rectangle(8, 16, 24, 24);
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
@@ -37,8 +37,8 @@ public class Player extends Entity {
     }
 
     public void setDefaultValues() {
-        worldX = gp.tileSize * 9; // player's position on the world map
-        worldY = gp.tileSize * 8;
+        worldX = gp.tileSize * 10; // player's position on the world map
+        worldY = gp.tileSize * 7;
         speed = 4;
         direction = Direction.DOWN;
     }

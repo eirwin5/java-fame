@@ -50,8 +50,8 @@ public class AssetSetter {
 
     public void setNpc() {
         gp.npc[0] = new Npc1(gp);
-        gp.npc[0].worldX = 12 * gp.tileSize;
-        gp.npc[0].worldY = 7 * gp.tileSize;
+        gp.npc[0].worldX = 9 * gp.tileSize;
+        gp.npc[0].worldY = 9 * gp.tileSize;
 
         gp.npc[1] = new Npc2(gp);
         gp.npc[1].worldX = 38 * gp.tileSize;
